@@ -1,0 +1,249 @@
+/*---variables---*/
+@font-face {
+    font-family: FantasqueSansMonoNerdFont;
+    src: url(.ttf);
+}
+
+/*---Background---*/
+#background{
+    background-color: #042433;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+}
+
+#backgroundImage{
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    image-rendering: pixelated;
+    z-index: -1;
+}
+
+
+/*---Buttons---*/
+#hideShow{
+    position: absolute;
+    margin: 25px;
+    top: 0;
+    right: 0;
+    width: 20px;
+    height: 10px;
+    border-radius: 5px;
+    border: none;
+}
+
+.show{
+    background-color: #542e2d;    
+}
+
+.show:hover{
+    background-color: #351f31;
+}
+
+.hide{
+    background-color: #D9D9D9;
+}
+.hide:hover{
+    background-color: #929292;
+}
+
+/*---ui---*/
+#ui{
+    width: 25%;
+    height: 30%;
+    margin: 1.5%;
+    border-radius: 15px;
+    position: absolute;
+    background-color: rgba(3, 23, 40, 0.5);
+    backdrop-filter: blur(10px);
+}
+
+/*---time&date---*/
+#timeDate{
+    position: absolute;
+    margin: 5%;<
+    width: 375px;
+    height: 80px;
+}
+
+#time{
+    margin: 0;
+    top: 0;
+    left: 0;
+    height: 40px;
+    width: 100%;
+    position: absolute;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #ecffec;
+}
+
+p{
+    font-family: inherit;
+    position: absolute;
+    font-style: normal;
+    color: inherit;
+    margin: 0;
+}
+
+#clockIcon{
+    font-family: FantasqueSansMonoNerdFont;
+    height: 40px;
+    width: 40px;
+    line-height: 40px;
+    font-size: 45px;
+}
+
+#timePP{
+    width: 20px;
+    height: 40px;
+    left: 40px;
+    top: 0px;
+    font-size: 40px;
+    line-height: 30px;
+    text-align: center;
+}
+
+#hour{
+    width: 50px;
+    height: 40px;
+    left: 60px;
+    text-align: center;
+    font-size: 45px;
+    line-height: 40px;
+}
+
+#時{
+    font-size: 40px;
+    width: 40px;
+    height: 40px;
+    left: 115px;
+    text-align: center;
+    line-height: 38px;
+}
+
+#minute{
+    width: 50px;
+    height: 40px;
+    left: 160px;
+    text-align: center;
+    font-size: 45px;
+    line-height: 40px;
+}
+
+#分{
+    font-size: 40px;
+    width: 40px;
+    height: 40px;
+    left: 215px;
+    text-align: center;
+    line-height: 38px;
+}
+
+#second{
+    width: 50px;
+    height: 40px;
+    left: 260px;
+    text-align: center;
+    font-size: 45px;
+    line-height: 40px;
+}
+
+#秒{
+    font-size: 40px;
+    width: 40px;
+    height: 40px;
+    left: 315px;
+    text-align: center;
+    line-height: 38px;
+}
+
+#underLine{
+    width: 375px;
+    height: 2.5px;
+    position: absolute;
+    top: 45px;
+    background-color: #ecffec;
+}
+
+#date{
+    height: 30px;
+    position: absolute;
+    top: auto;
+    bottom: 0;
+    width: 500px;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #ecffec;
+}
+
+#calendarIcon{
+    font-family: FantasqueSansMonoNerdFont;
+    height: 30px;
+    width: 20px;
+    line-height: 30px;
+    font-size: 25px;
+    text-align: left;  
+}
+
+#datePP{
+    height: 30px;
+    width: 10px;
+    left: 20px;
+    text-align: center;
+    font-size: 30px;
+    line-height: 20px;
+}
+
+#day{
+    left: 30px;
+    width: 50px;
+    height: 40px;
+    text-align: center;
+    font-size: 45px;
+    line-height: 40px;
+}
+
+#日{
+    font-size: 40px;
+    width: 40px;
+    height: 40px;
+    left: 60px;
+    text-align: center;
+    line-height: 38px;
+}
+
+#month{
+    width: 30px;
+    height: 30px;
+    left: 120px;
+    text-align: center;
+    font-size: 25px;
+    line-height: 26px;
+}
+
+#月{
+    font-size: 40px;
+    width: 40px;
+    height: 40px;
+    left: 115px;
+    text-align: center;
+    line-height: 38px;
+}
+
+#year{
+    width: 90px;
+    height: 30px;
+    left: 60px;
+    text-align: center;
+    font-size: 25px;
+    line-height: 26px;
+}
+
+#年{
+    font-size: 40px;
+    width: 40px;
+    height: 40px;
+    left: 115px;
+    text-align: center;
+    line-height: 38px;
+}

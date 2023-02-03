@@ -1,0 +1,174 @@
+/*---Variables---*/
+@font-face {
+    font-family: FantasqueSansMonoNerdFont;
+    src: url(.ttf);
+}
+
+@font-face {
+    font-family: NotoSerifJapanese;
+    src: url(.otf);
+}
+
+:root{
+    --brown:#351f31;
+    --lightBrown:#542e2d;
+
+    --white:#ecffec;
+    --red:#2222;
+    --grey:#f31313;
+}
+
+p{
+    color: white;
+    margin: 0;
+}
+
+/*---Background---*/
+#background{
+    top: 0;
+    left: 0;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+}
+#backgroundImage{
+    top: 0;
+    left: 0;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+
+    image-rendering: pixelated;
+    position:absolute;
+    z-index: -1;
+}
+
+/*---Button---*/
+#hideShow{
+    width: 5mm;
+    height: 2.5mm;
+    margin: 5mm;
+    top: 0;
+    right: 0;
+    border: none;
+    position: absolute;
+    border-radius: 5px;
+}
+
+.show{
+    background-color: var(--lightBrown);
+}
+.show:hover{
+    background-color: var(--brown);
+}
+
+.hide{
+    background-color: var(--white);
+}
+.hide:hover{
+    background-color: var(--grey);
+}
+
+/*---UI---*/
+#ui{
+    margin: 1cm;
+    width: 15cm;
+    height: 12cm;
+    position: absolute;
+    background-color: rgba(3, 23, 40, 0.5);
+    backdrop-filter: blur(10px);
+    border-radius: 12.5px;
+}
+
+/*---Time&Date---*/
+/*---Icon---*/
+#clockIcon{
+    font-family: FantasqueSansMonoNerdFont;
+    height: 1cm;
+    width: 1cm;
+    font-size: 1cm;
+    line-height: 100%;
+}
+#calendarIcon{
+    font-family: FantasqueSansMonoNerdFont;
+    height: 7mm;
+    font-size: 7mm;
+    width: 7mm;
+    line-height: 100%;
+}
+#songIcon{
+    font-family: FantasqueSansMonoNerdFont;
+}
+#artistIcon{
+    font-family: FantasqueSansMonoNerdFont;
+}
+
+#timeDate{
+    margin: 5mm;
+    height: 22.5mm;
+}
+
+/*---Time---*/
+#time{
+    width: 100%;
+    height: 12.5mm;
+    margin: 0;
+    display: flex;
+}
+
+#timePP{
+    height: 1cm;
+    width: 5mm;
+    font-size: 1cm;
+    line-height: 80%;
+    font-family: NotoSerifJapanese;
+}
+
+#timeText{
+    font-size: 1cm;
+    height: 1cm;
+    line-height: 100%;
+}
+
+#underLine{
+    height: 0.5mm;
+    width: 70%;
+    background-color: var(--white);
+    position: fixed;
+    top: 1.65cm;
+}
+
+#date{
+    margin: 0;
+    width: 100%;
+    height: 7mm;
+    display: flex;
+}
+
+#datePP{
+    height: 7mm;
+    width: 4mm;
+    font-size: 7mm;
+    line-height: 90%;
+    font-family: NotoSerifJapanese;
+}
+
+#dateText{
+    font-size: 7mm;
+    height: 7mm;
+    line-height: 100%;
+}
+
+/*---Battery---*/
+#battery{
+    margin: 5mm;
+}
+
+#batteryLoadBar{
+    aspect-ratio: 8;
+    width: 80%;
+    left: 10%;
+    right: 10%;
+    position: relative;
+    border-radius: 12.5px;
+}
