@@ -97,6 +97,9 @@ class TimeDate {
     this.m_datePP.id = "datePP";
     this.m_dateText.id = "dateText";
 
+    this.m_timePP.innerText = ":";
+    this.m_datePP.innerText = ":";
+
     this.m_time.appendChild(this.clockIcon);
     this.m_time.appendChild(this.m_timePP);
     this.m_time.appendChild(this.timeText);
@@ -110,9 +113,6 @@ class TimeDate {
     this.m_timeDate.appendChild(this.m_date);
 
     _parent.appendChild(this.m_timeDate);
-
-    this.m_timePP.innerText = ":";
-    this.m_datePP.innerText = ":";
 
     this.m_setDate();
     setInterval(() => {

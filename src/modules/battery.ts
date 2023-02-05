@@ -21,6 +21,22 @@ class battery {
 
     this.canvas = document.createElement("canvas");
 
+    this.battery.id = "battery";
+    this.battery.className = "uiBackground";
+
+    this.left.id = "batteryLeft";
+    this.right.id = "batteryRight";
+
+    this.load.id = "batteryLoad";
+    this.charge.id = "batteryCharge";
+    this.remaining.id = "batteryRemaining";
+
+    this.canvas.id = "batteryCanvas";
+
+    /*---temp---*/
+    this.load.innerText = "00:00:00"
+
+
     this.left.appendChild(this.canvas);
 
     this.right.appendChild(this.load);
