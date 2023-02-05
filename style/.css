@@ -1,12 +1,12 @@
 /*---Variables---*/
 @font-face {
     font-family: FantasqueSansMonoNerdFont;
-    src: url(.ttf);
+    src: url(./font/.ttf);
 }
 
 @font-face {
     font-family: NotoSerifJapanese;
-    src: url(.otf);
+    src: url(./font/.otf);
 }
 
 :root{
