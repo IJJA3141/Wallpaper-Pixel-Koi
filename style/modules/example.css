@@ -1,27 +1,4 @@
-/*---Variables---*/
-@font-face {
-    font-family: FantasqueSansMonoNerdFont;
-    src: url(../font/.ttf);
-}
-
-@font-face {
-    font-family: NotoSerifJapanese;
-    src: url(../font/.otf);
-}
-
-:root{
-    --brown:#351f31;
-    --lightBrown:#542e2d;
-
-    --white:#ecffec;
-    --red:#2222;
-    --grey:#f31313;
-}
-
-p{
-    color: white;
-    margin: 0;
-}
+@import url(./variables.css);
 
 /*---Background---*/
 #background{
