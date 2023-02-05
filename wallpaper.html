@@ -1,23 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./style/.css">
-</head>
-<body id="background">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./style/.css" />
+  </head>
+  <body id="background">
     <!--<div id="ui" style="visibility: hidden;">-->
+    <button id="hideShow" onclick="hideShow()" class="show"></button>
     <div id="ui">
-        <button id="hideShow" onclick="hideShow()" class="show"></button>
-        <div id="music">
-            <div id="songArtist">
-                <p id="songIcon">󰲸</p>
-                <p id="song"></p>
-                <p id="artistIcon">󰠃</p>
-                <p id="artist"></p>
-            </div>
-                <!--<div id="albumCover"><img id="albumCoverImage"></div>-->
+      <!--<div id="music">
+        <div id="songArtist">
+          <p id="songIcon">󰲸</p>
+          <p id="song"></p>
+          <p id="artistIcon">󰠃</p>
+          <p id="artist"></p>
+        </div>-->
+        <!--<div id="albumCover"><img id="albumCoverImage"></div>-->
+        <!--
+
             <div id="audioVisualizationPlayback">
                 <canvas id="audioVisualization"></canvas>
                 <p id="playbackPosition">00:00</p>
@@ -25,12 +27,9 @@
                 <canvas id="playback"></canvas>
             </div>
         </div>
-        <div id="battery">
-            <canvas id="batteryLoadBar"></canvas>
-            <p id="batteryLoadText">000%</p>
-        </div>
+    -->
     </div>
-    <img id="backgroundImage" src="temporary/.gif">
-</body>
-<script type="module" src=".js"></script>
+    <img id="backgroundImage" src="temporary/.gif" />
+  </body>
+  <script type="module" src=".js"></script>
 </html>

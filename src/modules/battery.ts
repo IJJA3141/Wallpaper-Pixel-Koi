@@ -32,6 +32,8 @@ class battery {
 
     _parent.appendChild(this.battery);
 
+    this.ctx = this.canvas.getContext("2d");
+
     return;
   }
 }

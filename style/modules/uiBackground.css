@@ -1,0 +1,8 @@
+.uiBackground {
+    background-color: var(--backgroundColor);
+    backdrop-filter: blur(10px);
+    border-radius: 12.5px;
+    border-color: rgba(255, 255, 255, 0.25);
+    border-width: 1px;
+    border-style: solid;
+}

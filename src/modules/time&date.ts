@@ -84,6 +84,7 @@ class TimeDate {
     this.m_underline = document.createElement("canvas");
 
     this.m_timeDate.id = "timeDate";
+    this.m_timeDate.className = "uiBackground"
 
     this.m_time.id = "time";
     this.clockIcon.id = "clockIcon";
@@ -99,16 +100,19 @@ class TimeDate {
     this.m_time.appendChild(this.clockIcon);
     this.m_time.appendChild(this.m_timePP);
     this.m_time.appendChild(this.timeText);
-    this.m_time.appendChild(this.m_underline);
-
+    
     this.m_date.appendChild(this.m_calendarIcon);
     this.m_date.appendChild(this.m_datePP);
     this.m_date.appendChild(this.m_dateText);
-
+    
     this.m_timeDate.appendChild(this.m_time);
+    this.m_timeDate.appendChild(this.m_underline);
     this.m_timeDate.appendChild(this.m_date);
 
     _parent.appendChild(this.m_timeDate);
+
+    this.m_timePP.innerText = ":";
+    this.m_datePP.innerText = ":";
 
     this.m_setDate();
     setInterval(() => {

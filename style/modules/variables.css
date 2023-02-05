@@ -9,16 +9,13 @@
     src: url(../font/.otf);
 }
 
-:root{
-    --brown:#351f31;
-    --lightBrown:#542e2d;
+:root {
+    --brown: #351f31;
+    --lightBrown: #542e2d;
 
-    --white:#ecffec;
-    --red:#2222;
-    --grey:#f31313;
-}
+    --white: #ecffec;
+    --red: #2222;
+    --grey: #f31313;
 
-p{
-    color: white;
-    margin: 0;
+    --backgroundColor: rgba(3, 23, 40, 0.5);
 }
