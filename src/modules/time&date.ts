@@ -8,7 +8,7 @@ class TimeDate {
   public clockIcon: HTMLParagraphElement;
   private m_timePP: HTMLParagraphElement;
   public timeText: HTMLParagraphElement;
-  private m_underline: HTMLCanvasElement;
+  private m_underline: HTMLDivElement;
 
   private m_date: HTMLDivElement;
   private m_calendarIcon: HTMLParagraphElement;
@@ -81,7 +81,7 @@ class TimeDate {
     this.m_datePP = document.createElement("p");
     this.m_dateText = document.createElement("p");
 
-    this.m_underline = document.createElement("canvas");
+    this.m_underline = document.createElement("div");
 
     this.m_timeDate.id = "timeDate";
     this.m_timeDate.className = "uiBackground"

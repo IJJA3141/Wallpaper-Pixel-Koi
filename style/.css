@@ -4,6 +4,7 @@
 @import url(./modules/example.css);
 
 @import url(./modules/time&date.css);
+@import url(./modules/battery.css);
 @import url(./modules/miscellaneous.css);
 
 p {

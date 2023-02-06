@@ -1,8 +1,20 @@
+interface BatteryManager {
+  charging: boolean;
+  chargingTime: number;
+  dischargingTime: number;
+  level: number;
+  onchargingchange: Event;
+  onchargingtimechange: Event;
+  ondischargingtimechange: Event;
+  onlevelchange: Event;
+}
+
 class battery {
   private battery: HTMLDivElement;
 
   private left: HTMLDivElement;
-  private canvas: HTMLCanvasElement;
+  private canvasTop: HTMLCanvasElement;
+  private canvasDown: HTMLCanvasElement;
   private ctx: CanvasRenderingContext2D;
 
   private right: HTMLDivElement;
@@ -10,7 +22,10 @@ class battery {
   private charge: HTMLParagraphElement;
   private remaining: HTMLParagraphElement;
 
-  constructor(_parent: HTMLElement) {
+  private batteryManager: BatteryManager;
+
+  constructor(_parent: HTMLElement, _batteryManager: BatteryManager) {
+    this.batteryManager = _batteryManager;
     this.battery = document.createElement("div");
     this.left = document.createElement("div");
     this.right = document.createElement("div");
@@ -19,7 +34,8 @@ class battery {
     this.charge = document.createElement("p");
     this.remaining = document.createElement("p");
 
-    this.canvas = document.createElement("canvas");
+    this.canvasTop = document.createElement("canvas");
+    this.canvasDown = document.createElement("canvas");
 
     this.battery.id = "battery";
     this.battery.className = "uiBackground";
@@ -31,13 +47,14 @@ class battery {
     this.charge.id = "batteryCharge";
     this.remaining.id = "batteryRemaining";
 
-    this.canvas.id = "batteryCanvas";
+    this.canvasTop.id = "batteryCanvasTop";
+    this.canvasDown.id = "batteryCanvasDown";
 
     /*---temp---*/
-    this.load.innerText = "00:00:00"
+    this.load.innerText = "00:00:00";
 
-
-    this.left.appendChild(this.canvas);
+    this.left.appendChild(this.canvasTop);
+    this.left.appendChild(this.canvasDown);
 
     this.right.appendChild(this.load);
     this.right.appendChild(this.charge);
@@ -48,7 +65,7 @@ class battery {
 
     _parent.appendChild(this.battery);
 
-    this.ctx = this.canvas.getContext("2d");
+    this.ctx = this.canvasTop.getContext("2d");
 
     return;
   }

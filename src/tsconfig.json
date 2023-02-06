@@ -3,6 +3,7 @@
         "module": "ES6",
         "removeComments": true,
         "outDir": "../",
+        "allowJs":  true,
     },
     "files": [
         ".ts"

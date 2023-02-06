@@ -5,4 +5,9 @@
     border-color: rgba(255, 255, 255, 0.25);
     border-width: 1px;
     border-style: solid;
+    align-content: center;
+    height: fit-content;
+    margin: 0;
+    margin-right: 3.75mm;
+    margin-bottom: 3.75mm;
 }

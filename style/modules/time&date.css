@@ -5,9 +5,9 @@
 #time {
     height: 11mm;
     margin: 0;
-    margin-top: 5mm;
-    margin-left: 5mm;
-    margin-right: 5mm;
+    margin-top: var(--margin);
+    margin-left: var(--margin);
+    margin-right: var(--margin);
     display: inline-flex;
 }
 
@@ -36,8 +36,8 @@
 #underLine {
     height: 0.5mm;
     margin-top: 0;
-    margin-left: 5mm;
-    margin-right: 5mm;
+    margin-left: var(--margin);
+    margin-right: var(--margin);
     margin-bottom: 1mm;
     width: 95mm;
     background-color: var(--white);
@@ -45,10 +45,9 @@
 
 #date {
     margin: 0;
-    margin-left: 5mm;
-    margin-right: 5mm;
-    margin-bottom: 5mm;
-    width: 100%;
+    margin-left: var(--margin);
+    margin-right: var(--margin);
+    margin-bottom: var(--margin);
     height: 7mm;
     display: inline-flex;
 }
