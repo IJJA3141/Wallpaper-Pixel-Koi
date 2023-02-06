@@ -6,11 +6,6 @@
     display: inline-grid;
 }
 
-#batteryRight {
-    margin: var(--margin);
-    margin-left: 0;
-}
-
 #batteryCanvasTop{
     margin-left: var(--margin);
     margin-top: 0;
@@ -27,4 +22,34 @@
     border: 0.5mm solid white;
     border-radius: 12.5px;
     width: 100px;
+}
+
+#batteryRight {
+    margin: var(--margin);
+    margin-top: 50px;
+    margin-left: 0;
+}
+
+#batteryLoadText{
+    font-size: 7mm;
+    height: 7mm;
+    line-height: 100%;
+}
+
+#batteryLoad{
+    font-size: 7mm;
+    height: 7mm;
+    line-height: 100%;
+}
+
+#batteryChageText{
+    font-size: 7mm;
+    height: 7mm;
+    line-height: 100%;
+}
+
+#batteryCharge{
+    font-size: 7mm;
+    height: 7mm;
+    line-height: 100%;
 }
