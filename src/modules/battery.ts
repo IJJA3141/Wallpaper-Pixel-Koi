@@ -1,20 +1,25 @@
+const chargingText: string = "Time remaining until full charge:";
+const disChargingText: string = "Time remaining unttil discharge:";
+
 class battery {
   private battery: HTMLDivElement;
 
   private left: HTMLDivElement;
-  private canvasTop: HTMLCanvasElement;
-  private canvasDown: HTMLCanvasElement;
-  private ctx: CanvasRenderingContext2D;
+  public canvasTop: HTMLCanvasElement;
+  public canvasDown: HTMLCanvasElement;
+  public ctx: CanvasRenderingContext2D;
 
   private right: HTMLDivElement;
   private loadText: HTMLParagraphElement;
   private loadUnderline: HTMLDivElement;
-  private load: HTMLParagraphElement;
-  private chargeText: HTMLParagraphElement;
+  public load: HTMLParagraphElement;
+  public chargeText: HTMLParagraphElement;
   private chargeUnderline: HTMLDivElement;
-  private charge: HTMLParagraphElement;
+  public charge: HTMLParagraphElement;
 
-  constructor(_parent: HTMLElement, _batteryManager: any) {
+  public chargingState: boolean;
+
+  constructor(_parent: HTMLElement) {
     this.battery = document.createElement("div");
     this.left = document.createElement("div");
     this.right = document.createElement("div");
@@ -65,10 +70,11 @@ class battery {
     this.battery.appendChild(this.right);
 
     _parent.appendChild(this.battery);
-
-    this.ctx = this.canvasTop.getContext("2d");
-
     return;
+  }
+
+  public async Startanimation() {
+    while (this.chargingState) {}
   }
 }
 
