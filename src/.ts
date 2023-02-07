@@ -5,3 +5,8 @@ import { battery } from "./modules/battery.js";
 const ui: HTMLElement = document.getElementById("ui");
 const td: TimeDate = new TimeDate(ui);
 const bt: battery = new battery(ui);
+
+var ab:boolean[]
+var aab:boolean[][]
+
+for(var i = 0M)
