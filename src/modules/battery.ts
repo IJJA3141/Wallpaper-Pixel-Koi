@@ -5,7 +5,6 @@ class battery {
   private battery: HTMLDivElement;
 
   private left: HTMLDivElement;
-  public canvasTop: HTMLCanvasElement;
   public canvasDown: HTMLCanvasElement;
   public ctx: CanvasRenderingContext2D;
 
@@ -31,7 +30,6 @@ class battery {
     this.chargeText = document.createElement("p");
     this.charge = document.createElement("p");
 
-    this.canvasTop = document.createElement("canvas");
     this.canvasDown = document.createElement("canvas");
 
     this.battery.id = "battery";
@@ -47,7 +45,6 @@ class battery {
     this.chargeUnderline.id = "batteryChargeUnderline";
     this.charge.id = "batteryCharge";
 
-    this.canvasTop.id = "batteryCanvasTop";
     this.canvasDown.id = "batteryCanvasDown";
 
     this.loadText.innerText = "Load:";
@@ -56,7 +53,6 @@ class battery {
     this.chargeText.innerText = "charge:";
     this.charge.innerText = "00:00:00";
 
-    this.left.appendChild(this.canvasTop);
     this.left.appendChild(this.canvasDown);
 
     this.right.appendChild(this.loadText);
