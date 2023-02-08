@@ -1,5 +1,12 @@
+import { shape2x2 } from "./shapes.js";
+
 const chargingText: string = "Time remaining until full charge:";
 const disChargingText: string = "Time remaining unttil discharge:";
+
+declare var Promise: any;
+function sleep(_timeout: number) {
+  return new Promise((resolve: TimerHandler) => setTimeout(resolve, _timeout));
+}
 
 class battery {
   private battery: HTMLDivElement;
@@ -66,6 +73,23 @@ class battery {
     this.battery.appendChild(this.right);
 
     _parent.appendChild(this.battery);
+
+    this.ctx = this.canvasDown.getContext("2d");
+    this.canvasDown.width = 102; // 102/6 = 17
+    this.canvasDown.height = 510; // 6x30: dot = 17x17
+
+    var a: shape2x2 = new shape2x2(1, 0, "red", this.ctx);
+    var b: shape2x2 = new shape2x2(0, 20, "blue", this.ctx);
+
+    (async () => {
+      for (var i = 0; i < 50; i++) {
+        a.drop();
+        b.drop();
+        await sleep(500);
+      }
+      return Promise.resolve();
+    })();
+
     return;
   }
 
