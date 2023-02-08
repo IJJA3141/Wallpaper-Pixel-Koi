@@ -1,4 +1,4 @@
-import { shape2x2 } from "./shapes.js";
+import { shape2x1, shape2x2 } from "./shapes.js";
 
 const chargingText: string = "Time remaining until full charge:";
 const disChargingText: string = "Time remaining unttil discharge:";
@@ -78,13 +78,13 @@ class battery {
     this.canvasDown.width = 102; // 102/6 = 17
     this.canvasDown.height = 510; // 6x30: dot = 17x17
 
-    var a: shape2x2 = new shape2x2(1, 0, "red", this.ctx);
-    var b: shape2x2 = new shape2x2(0, 20, "blue", this.ctx);
-
+    var a: shape2x1 = new shape2x1(1, 0, "red", this.ctx);
+    //var b: shape2x2 = new shape2x2(0, 20, "blue", this.ctx);
+    
     (async () => {
       for (var i = 0; i < 50; i++) {
         a.drop();
-        b.drop();
+        //b.drop();
         await sleep(500);
       }
       return Promise.resolve();
