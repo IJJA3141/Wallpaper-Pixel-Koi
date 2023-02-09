@@ -8,6 +8,10 @@ import {
   shape01_11,
   shape11_01,
   shape11_10,
+  緑,
+  黄色,
+  オレンジ,
+  赤,
 } from "./shapes.js";
 
 const chargingText: string = "Time remaining until full charge:";
@@ -87,16 +91,6 @@ class battery {
     this.ctx = this.canvasDown.getContext("2d");
     this.canvasDown.width = 102; // 102/6 = 17
     this.canvasDown.height = 510; // 6x30: dot = 17x17
-
-    var a: shape11_10 = new shape11_10(2, 2, "pink", this.ctx);
-
-    (async () => {
-      for (var i = 0; i < 30; i++) {
-        a.drop()
-        await sleep(500);
-      }
-      return Promise.resolve();
-    })();
 
     return;
   }

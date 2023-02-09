@@ -1,4 +1,10 @@
 const ドット: number = 17;
+
+const 緑: string[] = ["#00e200", "#00cb00", "#00b100"];
+const 赤: string[] = ["#cc230a", "#cc3300", "#b51f09"];
+const オレンジ: string[] = ["#fb7200", "#e36700", "#d66100"];
+const 黄色: string[] = ["#ffdb00", "#ffce00", "#fbe400"];
+
 const matrix: boolean[][] = [
   [false, false, false, false, false, false],
   [false, false, false, false, false, false],
@@ -389,4 +395,8 @@ export {
   shape01_11,
   shape11_01,
   shape11_10,
+  緑,
+  黄色,
+  オレンジ,
+  赤,
 };
