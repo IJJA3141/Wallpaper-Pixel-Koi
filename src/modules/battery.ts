@@ -1,4 +1,14 @@
-import { shape2x1, shape2x2 } from "./shapes.js";
+import {
+  shapes,
+  shape1x1,
+  shape1x2,
+  shape2x2,
+  shape2x1,
+  shape10_11,
+  shape01_11,
+  shape11_01,
+  shape11_10,
+} from "./shapes.js";
 
 const chargingText: string = "Time remaining until full charge:";
 const disChargingText: string = "Time remaining unttil discharge:";
@@ -78,13 +88,11 @@ class battery {
     this.canvasDown.width = 102; // 102/6 = 17
     this.canvasDown.height = 510; // 6x30: dot = 17x17
 
-    var a: shape2x1 = new shape2x1(1, 0, "red", this.ctx);
-    //var b: shape2x2 = new shape2x2(0, 20, "blue", this.ctx);
-    
+    var a: shape11_10 = new shape11_10(2, 2, "pink", this.ctx);
+
     (async () => {
-      for (var i = 0; i < 50; i++) {
-        a.drop();
-        //b.drop();
+      for (var i = 0; i < 30; i++) {
+        a.drop()
         await sleep(500);
       }
       return Promise.resolve();
@@ -92,7 +100,6 @@ class battery {
 
     return;
   }
-
   public async Startanimation() {
     while (this.chargingState) {}
   }
