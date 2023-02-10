@@ -85,8 +85,63 @@ const 黄色: string[] = ["#ffdb00", "#ffce00", "#fbe400"];
   [true, true, true, true, true, true, true, true]
 ];*/
 
+/*10x50*/
+const matrix:boolean[][] = [
+  [false, false, false, false, false, false, false, false, false, false],
+  [false, false, false, false, false, false, false, false, false, false],
+  [false, false, false, false, false, false, false, false, false, false],
+  [false, false, false, false, false, false, false, false, false, false],
+  [false, false, false, false, false, false, false, false, false, false],
+  [false, false, false, false, false, false, false, false, false, false],
+  [false, false, false, false, false, false, false, false, false, false],
+  [false, false, false, false, false, false, false, false, false, false],
+  [false, false, false, false, false, false, false, false, false, false],
+  [false, false, false, false, false, false, false, false, false, false],
+  [false, false, false, false, false, false, false, false, false, false],
+  [false, false, false, false, false, false, false, false, false, false],
+  [false, false, false, false, false, false, false, false, false, false],
+  [false, false, false, false, false, false, false, false, false, false],
+  [false, false, false, false, false, false, false, false, false, false],
+  [false, false, false, false, false, false, false, false, false, false],
+  [false, false, false, false, false, false, false, false, false, false],
+  [false, false, false, false, false, false, false, false, false, false],
+  [false, false, false, false, false, false, false, false, false, false],
+  [false, false, false, false, false, false, false, false, false, false],
+  [false, false, false, false, false, false, false, false, false, false],
+  [false, false, false, false, false, false, false, false, false, false],
+  [false, false, false, false, false, false, false, false, false, false],
+  [false, false, false, false, false, false, false, false, false, false],
+  [false, false, false, false, false, false, false, false, false, false],
+  [false, false, false, false, false, false, false, false, false, false],
+  [false, false, false, false, false, false, false, false, false, false],
+  [false, false, false, false, false, false, false, false, false, false],
+  [false, false, false, false, false, false, false, false, false, false],
+  [false, false, false, false, false, false, false, false, false, false],
+  [false, false, false, false, false, false, false, false, false, false],
+  [false, false, false, false, false, false, false, false, false, false],
+  [false, false, false, false, false, false, false, false, false, false],
+  [false, false, false, false, false, false, false, false, false, false],
+  [false, false, false, false, false, false, false, false, false, false],
+  [false, false, false, false, false, false, false, false, false, false],
+  [false, false, false, false, false, false, false, false, false, false],
+  [false, false, false, false, false, false, false, false, false, false],
+  [false, false, false, false, false, false, false, false, false, false],
+  [false, false, false, false, false, false, false, false, false, false],
+  [false, false, false, false, false, false, false, false, false, false],
+  [false, false, false, false, false, false, false, false, false, false],
+  [false, false, false, false, false, false, false, false, false, false],
+  [false, false, false, false, false, false, false, false, false, false],
+  [false, false, false, false, false, false, false, false, false, false],
+  [false, false, false, false, false, false, false, false, false, false],
+  [false, false, false, false, false, false, false, false, false, false],
+  [false, false, false, false, false, false, false, false, false, false],
+  [false, false, false, false, false, false, false, false, false, false],
+  [false, false, false, false, false, false, false, false, false, false],
+  [true, true, true, true, true, true, true, true, true, true],
+]
+
 /*20x100*/
-const matrix: boolean[][] = [
+/*const matrix: boolean[][] = [
   [
     false,
     false,
@@ -2311,6 +2366,7 @@ const matrix: boolean[][] = [
     true,
   ],
 ];
+*/
 
 class shapes {
   protected ctx: CanvasRenderingContext2D;
@@ -2360,7 +2416,7 @@ class shape2x2 extends shapes {
 
     this.ctx.fillStyle = this.color;
     this.ctx.fillRect(this.x * ドット, this.y * ドット, 2 * ドット, 2 * ドット);
-    console.log(matrix);
+    //console.log(matrix);
   }
 
   public drop(): void {
@@ -2387,7 +2443,7 @@ class shape2x2 extends shapes {
       matrix[this.y + 1][this.x] = true;
       matrix[this.y + 1][this.x + 1] = true;
     }
-    console.log(matrix);
+    //console.log(matrix);
     return;
   }
 }
@@ -2404,7 +2460,7 @@ class shape2x1 extends shapes {
   }
 
   public draw(): void {
-    console.log("shape2x1");
+    //console.log("shape2x1");
 
     matrix[this.y][this.x] = true;
     matrix[this.y][this.x + 1] = true;
@@ -2412,7 +2468,7 @@ class shape2x1 extends shapes {
     this.ctx.fillStyle = this.color;
     this.ctx.fillRect(this.x * ドット, this.y * ドット, 2 * ドット, ドット);
 
-    console.log(matrix);
+    //console.log(matrix);
   }
 
   public drop(): void {
@@ -2428,7 +2484,7 @@ class shape2x1 extends shapes {
       matrix[this.y][this.x] = true;
       matrix[this.y][this.x + 1] = true;
 
-      console.log(matrix);
+      //console.log(matrix);
     }
     return;
   }
@@ -2454,7 +2510,7 @@ class shape1x2 extends shapes {
 
     this.ctx.fillStyle = this.color;
     this.ctx.fillRect(this.x * ドット, this.y * ドット, ドット, 2 * ドット);
-    console.log(matrix);
+    //console.log(matrix);
   }
 
   public drop(): void {
@@ -2470,7 +2526,7 @@ class shape1x2 extends shapes {
       matrix[this.y][this.x] = true;
       matrix[this.y + 1][this.x] = true;
     }
-    console.log(matrix);
+    //console.log(matrix);
     return;
   }
 }
@@ -2490,7 +2546,7 @@ class shape1x1 extends shapes {
     this.ctx.fillStyle = this.color;
     this.ctx.fillRect(this.x * ドット, this.y * ドット, ドット, ドット);
     matrix[this.y][this.x] = true;
-    console.log(matrix);
+    //console.log(matrix);
   }
 
   public drop(): void {
@@ -2505,7 +2561,7 @@ class shape1x1 extends shapes {
 
       matrix[this.y][this.x] = true;
     }
-    console.log(matrix);
+    //console.log(matrix);
     return;
   }
 }
@@ -2534,9 +2590,9 @@ class shape10_11 extends shapes {
       this.downHalf.drop();
       this.topHalf.drop();
       this.y++;
-      console.log("drop");
+      //console.log("drop");
     }
-    console.log(matrix);
+    //console.log(matrix);
     return;
   }
 
@@ -2571,9 +2627,9 @@ class shape01_11 extends shapes {
       this.downHalf.drop();
       this.topHalf.drop();
       this.y++;
-      console.log("drop");
+      //console.log("drop");
     }
-    console.log(matrix);
+    //console.log(matrix);
     return;
   }
 
@@ -2608,9 +2664,9 @@ class shape11_01 extends shapes {
       this.downHalf.drop();
       this.topHalf.drop();
       this.y++;
-      console.log("drop");
+      //console.log("drop");
     }
-    console.log(matrix);
+    //console.log(matrix);
     return;
   }
 
@@ -2645,9 +2701,9 @@ class shape11_10 extends shapes {
       this.downHalf.drop();
       this.topHalf.drop();
       this.y++;
-      console.log("drop");
+      //console.log("drop");
     }
-    console.log(matrix);
+    //console.log(matrix);
     return;
   }
 
@@ -2672,4 +2728,5 @@ export {
   黄色,
   オレンジ,
   赤,
+  matrix,
 };

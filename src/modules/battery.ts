@@ -12,6 +12,7 @@ import {
   黄色,
   オレンジ,
   赤,
+  matrix,
 } from "./shapes.js";
 
 const chargingText: string = "Time remaining until full charge:";
@@ -20,6 +21,10 @@ const disChargingText: string = "Time remaining unttil discharge:";
 declare var Promise: any;
 function sleep(_timeout: number) {
   return new Promise((resolve: TimerHandler) => setTimeout(resolve, _timeout));
+}
+
+function getBatteryLeyer(_x: number): number {
+  return Math.ceil(_x / 2);
 }
 
 function getRandomInt(max: number): number {
@@ -92,15 +97,18 @@ class battery {
     this.battery.appendChild(this.left);
     this.battery.appendChild(this.right);
 
+    this.matrix = new Array();
+
     _parent.appendChild(this.battery);
 
     //old format (6x30 = 102/510 --> 17x17, 8x40 = 104/520 --> 13x13, 20x100 = 90/450 --> 4.5x4.5)
-    // 10x50 = ? --> 9x9
+    // 10x50 = 90/450 --> 9x9
     this.ctx = this.canvasDown.getContext("2d");
     this.canvasDown.width = 90;
-    this.canvasDown.height = 450; 
+    this.canvasDown.height = 450;
 
-    var a: shape11_01 = new shape11_01(5, 20, 緑[2], this.ctx);
+    /*
+    var a: shape11_01 = new shape11_01(5, 0, 緑[2], this.ctx);
     (async () => {
       for (var i = 0; i < 100; i++) {
         await sleep(400);
@@ -108,15 +116,67 @@ class battery {
       }
       return Promise.resolve();
     })();
-
+    */
     return;
   }
 
-  public addLayer() {
-    switch (getRandomInt(8)) {
-      case 0: {
+  public generateBattery(_load: number) {
+    var y: number;
+    var x: number;
+    var s: shapes;
+    var ms: shapes[];
+    for (var i: number = 1; i <= _load; i++) {
+      y = matrix.length - getBatteryLeyer(i) - 2;
+      x = getRandomInt(10);
+      s = null;
+      ms = [];
+      if (!matrix[y][x]) {
+        switch (getRandomInt(8)) {
+          case 0: {
+            s = new shape1x1(x, y, "red", this.ctx);
+            ms.push(s);
+            break;
+          }
+          case 1: {
+            s = new shape1x2(x, y, "red", this.ctx);
+            ms.push(s);
+            break;
+          }
+          case 2: {
+            s = new shape2x2(x, y, "red", this.ctx);
+            ms.push(s);
+            break;
+          }
+          case 3: {
+            s = new shape2x1(x, y, "red", this.ctx);
+            ms.push(s);
+            break;
+          }
+          case 4: {
+            s = new shape01_11(x, y, "red", this.ctx);
+            ms.push(s);
+            break;
+          }
+          case 5: {
+            s = new shape10_11(x, y, "red", this.ctx);
+            ms.push(s);
+            break;
+          }
+          case 6: {
+            s = new shape11_01(x, y, "red", this.ctx);
+            ms.push(s);
+            break;
+          }
+          case 7: {
+            s = new shape11_10(x, y, "red", this.ctx);
+            ms.push(s);
+            break;
+          }
+        }
       }
+      this.matrix.push(ms);
     }
+    console.log(this.matrix);
   }
 }
 
