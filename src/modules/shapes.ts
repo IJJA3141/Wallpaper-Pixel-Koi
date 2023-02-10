@@ -1,11 +1,12 @@
-const ドット: number = 17;
+const ドット: number = 13;
 
 const 緑: string[] = ["#00e200", "#00cb00", "#00b100"];
 const 赤: string[] = ["#cc230a", "#cc3300", "#b51f09"];
 const オレンジ: string[] = ["#fb7200", "#e36700", "#d66100"];
 const 黄色: string[] = ["#ffdb00", "#ffce00", "#fbe400"];
 
-const matrix: boolean[][] = [
+/*6x30 matrix*/
+/*const matrix: boolean[][] = [
   [false, false, false, false, false, false],
   [false, false, false, false, false, false],
   [false, false, false, false, false, false],
@@ -37,6 +38,51 @@ const matrix: boolean[][] = [
   [false, false, false, false, false, false],
   [false, false, false, false, false, false],
   [true, true, true, true, true, true],
+];*/
+
+/*8x04*/
+const matrix: boolean[][] = [
+  [false, false, false, false, false, false, false, false],
+  [false, false, false, false, false, false, false, false],
+  [false, false, false, false, false, false, false, false],
+  [false, false, false, false, false, false, false, false],
+  [false, false, false, false, false, false, false, false],
+  [false, false, false, false, false, false, false, false],
+  [false, false, false, false, false, false, false, false],
+  [false, false, false, false, false, false, false, false],
+  [false, false, false, false, false, false, false, false],
+  [false, false, false, false, false, false, false, false],
+  [false, false, false, false, false, false, false, false],
+  [false, false, false, false, false, false, false, false],
+  [false, false, false, false, false, false, false, false],
+  [false, false, false, false, false, false, false, false],
+  [false, false, false, false, false, false, false, false],
+  [false, false, false, false, false, false, false, false],
+  [false, false, false, false, false, false, false, false],
+  [false, false, false, false, false, false, false, false],
+  [false, false, false, false, false, false, false, false],
+  [false, false, false, false, false, false, false, false],
+  [false, false, false, false, false, false, false, false],
+  [false, false, false, false, false, false, false, false],
+  [false, false, false, false, false, false, false, false],
+  [false, false, false, false, false, false, false, false],
+  [false, false, false, false, false, false, false, false],
+  [false, false, false, false, false, false, false, false],
+  [false, false, false, false, false, false, false, false],
+  [false, false, false, false, false, false, false, false],
+  [false, false, false, false, false, false, false, false],
+  [false, false, false, false, false, false, false, false],
+  [false, false, false, false, false, false, false, false],
+  [false, false, false, false, false, false, false, false],
+  [false, false, false, false, false, false, false, false],
+  [false, false, false, false, false, false, false, false],
+  [false, false, false, false, false, false, false, false],
+  [false, false, false, false, false, false, false, false],
+  [false, false, false, false, false, false, false, false],
+  [false, false, false, false, false, false, false, false],
+  [false, false, false, false, false, false, false, false],
+  [false, false, false, false, false, false, false, false],
+  [true, true, true, true, true, true, true, true]
 ];
 
 class shapes {

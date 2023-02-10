@@ -22,6 +22,10 @@ function sleep(_timeout: number) {
   return new Promise((resolve: TimerHandler) => setTimeout(resolve, _timeout));
 }
 
+function getRandomInt(max:number):number {
+  return Math.floor(Math.random() * max);
+}
+
 class battery {
   private battery: HTMLDivElement;
 
@@ -38,6 +42,8 @@ class battery {
   public charge: HTMLParagraphElement;
 
   public chargingState: boolean;
+
+  private matrix:shapes[][];
 
   constructor(_parent: HTMLElement) {
     this.battery = document.createElement("div");
@@ -88,14 +94,22 @@ class battery {
 
     _parent.appendChild(this.battery);
 
-    this.ctx = this.canvasDown.getContext("2d");
-    this.canvasDown.width = 102; // 102/6 = 17
-    this.canvasDown.height = 510; // 6x30: dot = 17x17
+    this.ctx = this.canvasDown.getContext("2d"); // 6x30 = 102/510 --> 17x17
+    this.canvasDown.width = 80; // 8x40 = 104/520 --> 13x13
+    this.canvasDown.height = 450; //
+
+    this.ctx.fillStyle = "red"
+    this.ctx.fillRect(2,2,100.5,10.75)
 
     return;
   }
-  public async Startanimation() {
-    while (this.chargingState) {}
+
+  public addLayer(){
+    switch(getRandomInt(8)){
+      case(0):{
+
+      }
+    }
   }
 }
 

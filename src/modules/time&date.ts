@@ -63,7 +63,7 @@ class TimeDate {
     this.m_calendarIcon.innerText = calendarIcon;
     this.m_dateText.innerText = `${this.format(
       String(date.getDate())
-    )}日、${this.format(String(date.getMonth()))}月、${date.getFullYear()}年`;
+    )}日、${this.format(String(date.getMonth() + 1))}月、${date.getFullYear()}年`;
 
     return;
   }
