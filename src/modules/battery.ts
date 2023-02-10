@@ -22,7 +22,7 @@ function sleep(_timeout: number) {
   return new Promise((resolve: TimerHandler) => setTimeout(resolve, _timeout));
 }
 
-function getRandomInt(max:number):number {
+function getRandomInt(max: number): number {
   return Math.floor(Math.random() * max);
 }
 
@@ -43,7 +43,7 @@ class battery {
 
   public chargingState: boolean;
 
-  private matrix:shapes[][];
+  private matrix: shapes[][];
 
   constructor(_parent: HTMLElement) {
     this.battery = document.createElement("div");
@@ -94,20 +94,27 @@ class battery {
 
     _parent.appendChild(this.battery);
 
-    this.ctx = this.canvasDown.getContext("2d"); // 6x30 = 102/510 --> 17x17
-    this.canvasDown.width = 80; // 8x40 = 104/520 --> 13x13
-    this.canvasDown.height = 450; //
+    //old format (6x30 = 102/510 --> 17x17, 8x40 = 104/520 --> 13x13, 20x100 = 90/450 --> 4.5x4.5)
+    // 10x50 = ? --> 9x9
+    this.ctx = this.canvasDown.getContext("2d");
+    this.canvasDown.width = 90;
+    this.canvasDown.height = 450; 
 
-    this.ctx.fillStyle = "red"
-    this.ctx.fillRect(2,2,100.5,10.75)
+    var a: shape11_01 = new shape11_01(5, 20, 緑[2], this.ctx);
+    (async () => {
+      for (var i = 0; i < 100; i++) {
+        await sleep(400);
+        a.drop();
+      }
+      return Promise.resolve();
+    })();
 
     return;
   }
 
-  public addLayer(){
-    switch(getRandomInt(8)){
-      case(0):{
-
+  public addLayer() {
+    switch (getRandomInt(8)) {
+      case 0: {
       }
     }
   }
