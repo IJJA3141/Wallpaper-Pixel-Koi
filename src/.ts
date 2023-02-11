@@ -5,4 +5,4 @@ import { battery } from "./modules/battery.js";
 const ui: HTMLElement = document.getElementById("ui");
 const td: TimeDate = new TimeDate(ui);
 const bt: battery = new battery(ui);
-bt.generateBattery(1)
+bt.generateBattery(50)

@@ -86,7 +86,7 @@ const 黄色: string[] = ["#ffdb00", "#ffce00", "#fbe400"];
 ];*/
 
 /*10x50*/
-const matrix:boolean[][] = [
+const matrix: boolean[][] = [
   [false, false, false, false, false, false, false, false, false, false],
   [false, false, false, false, false, false, false, false, false, false],
   [false, false, false, false, false, false, false, false, false, false],
@@ -138,7 +138,7 @@ const matrix:boolean[][] = [
   [false, false, false, false, false, false, false, false, false, false],
   [false, false, false, false, false, false, false, false, false, false],
   [true, true, true, true, true, true, true, true, true, true],
-]
+];
 
 /*20x100*/
 /*const matrix: boolean[][] = [
@@ -2373,7 +2373,7 @@ class shapes {
   protected x: number;
   protected y: number;
   public color: string;
-
+  
   constructor(
     _x: number,
     _y: number,
@@ -2394,7 +2394,89 @@ class shapes {
   }
 }
 
+class shape1x1 extends shapes {
+  static id:number = 0
+
+  constructor(
+    _x: number,
+    _y: number,
+    _color: string,
+    _ctx: CanvasRenderingContext2D
+  ) {
+    super(_x, _y, _color, _ctx);
+    this.draw();
+  }
+
+  public draw(): void {
+    this.ctx.fillStyle = this.color;
+    this.ctx.fillRect(this.x * ドット, this.y * ドット, ドット, ドット);
+    matrix[this.y][this.x] = true;
+    //console.log(matrix);
+  }
+
+  public drop(): void {
+    if (!matrix[this.y + 1][this.x]) {
+      this.ctx.fillStyle = this.color;
+      this.ctx.clearRect(this.x * ドット, this.y * ドット, ドット, ドット);
+
+      matrix[this.y][this.x] = false;
+
+      this.y++;
+      this.ctx.fillRect(this.x * ドット, this.y * ドット, ドット, ドット);
+
+      matrix[this.y][this.x] = true;
+    }
+    //console.log(matrix);
+    return;
+  }
+}
+
+class shape1x2 extends shapes {
+  static id:number = 1
+
+  constructor(
+    _x: number,
+    _y: number,
+    _color: string,
+    _ctx: CanvasRenderingContext2D
+  ) {
+    super(_x, _y, _color, _ctx);
+    this.draw();
+  }
+
+  public draw(): void {
+    try {
+      matrix[this.y][this.x] = true;
+    } catch {}
+
+    matrix[this.y + 1][this.x] = true;
+
+    this.ctx.fillStyle = this.color;
+    this.ctx.fillRect(this.x * ドット, this.y * ドット, ドット, 2 * ドット);
+    //console.log(matrix);
+  }
+
+  public drop(): void {
+    if (!matrix[this.y + 2][this.x]) {
+      this.ctx.fillStyle = this.color;
+      this.ctx.clearRect(this.x * ドット, this.y * ドット, ドット, ドット);
+
+      matrix[this.y][this.x] = false;
+
+      this.y++;
+      this.ctx.fillRect(this.x * ドット, this.y * ドット, ドット, 2 * ドット);
+
+      matrix[this.y][this.x] = true;
+      matrix[this.y + 1][this.x] = true;
+    }
+    //console.log(matrix);
+    return;
+  }
+}
+
 class shape2x2 extends shapes {
+  static id:number = 2
+
   constructor(
     _x: number,
     _y: number,
@@ -2449,6 +2531,8 @@ class shape2x2 extends shapes {
 }
 
 class shape2x1 extends shapes {
+  static id:number = 3
+
   constructor(
     _x: number,
     _y: number,
@@ -2490,83 +2574,9 @@ class shape2x1 extends shapes {
   }
 }
 
-class shape1x2 extends shapes {
-  constructor(
-    _x: number,
-    _y: number,
-    _color: string,
-    _ctx: CanvasRenderingContext2D
-  ) {
-    super(_x, _y, _color, _ctx);
-    this.draw();
-  }
-
-  public draw(): void {
-    try {
-      matrix[this.y][this.x] = true;
-    } catch {}
-
-    matrix[this.y + 1][this.x] = true;
-
-    this.ctx.fillStyle = this.color;
-    this.ctx.fillRect(this.x * ドット, this.y * ドット, ドット, 2 * ドット);
-    //console.log(matrix);
-  }
-
-  public drop(): void {
-    if (!matrix[this.y + 2][this.x]) {
-      this.ctx.fillStyle = this.color;
-      this.ctx.clearRect(this.x * ドット, this.y * ドット, ドット, ドット);
-
-      matrix[this.y][this.x] = false;
-
-      this.y++;
-      this.ctx.fillRect(this.x * ドット, this.y * ドット, ドット, 2 * ドット);
-
-      matrix[this.y][this.x] = true;
-      matrix[this.y + 1][this.x] = true;
-    }
-    //console.log(matrix);
-    return;
-  }
-}
-
-class shape1x1 extends shapes {
-  constructor(
-    _x: number,
-    _y: number,
-    _color: string,
-    _ctx: CanvasRenderingContext2D
-  ) {
-    super(_x, _y, _color, _ctx);
-    this.draw();
-  }
-
-  public draw(): void {
-    this.ctx.fillStyle = this.color;
-    this.ctx.fillRect(this.x * ドット, this.y * ドット, ドット, ドット);
-    matrix[this.y][this.x] = true;
-    //console.log(matrix);
-  }
-
-  public drop(): void {
-    if (!matrix[this.y + 1][this.x]) {
-      this.ctx.fillStyle = this.color;
-      this.ctx.clearRect(this.x * ドット, this.y * ドット, ドット, ドット);
-
-      matrix[this.y][this.x] = false;
-
-      this.y++;
-      this.ctx.fillRect(this.x * ドット, this.y * ドット, ドット, ドット);
-
-      matrix[this.y][this.x] = true;
-    }
-    //console.log(matrix);
-    return;
-  }
-}
-
 class shape10_11 extends shapes {
+  static id:number = 4
+
   private topHalf: shape1x1;
   private downHalf: shape2x1;
 
@@ -2604,6 +2614,8 @@ class shape10_11 extends shapes {
 }
 
 class shape01_11 extends shapes {
+  static id:number = 5
+  
   private topHalf: shape1x1;
   private downHalf: shape2x1;
 
@@ -2641,6 +2653,8 @@ class shape01_11 extends shapes {
 }
 
 class shape11_01 extends shapes {
+  static id:number = 6
+  
   private topHalf: shape2x1;
   private downHalf: shape1x1;
 
@@ -2678,6 +2692,8 @@ class shape11_01 extends shapes {
 }
 
 class shape11_10 extends shapes {
+  static id:number = 7
+  
   private topHalf: shape2x1;
   private downHalf: shape1x1;
 

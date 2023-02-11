@@ -31,6 +31,60 @@ function getRandomInt(max: number): number {
   return Math.floor(Math.random() * max);
 }
 
+function getPlace(_x: number, _y: number): number[] {
+  var _out: number[] = new Array();
+  if (
+    matrix[_y][_x - 1] &&
+    !matrix[_y][_x] &&
+    !matrix[_y - 1][_x - 1] &&
+    !matrix[_y - 1][_x]
+  )
+    _out.push(shape11_10.id) /*11_10*/;
+  if (
+    !matrix[_y][_x] &&
+    !matrix[_y][_x + 1] &&
+    !matrix[_y - 1][_x] &&
+    !matrix[_y - 1][_x + 1]
+  )
+    _out.push(
+      shape1x1.id,
+      shape1x2.id,
+      shape2x2.id,
+      shape2x1.id,
+      shape01_11.id,
+      shape10_11.id,
+      shape11_01.id
+    ) /*4x4 clear*/;
+  else if (
+    !matrix[_y][_x] &&
+    matrix[_y][_x + 1] &&
+    !matrix[_y - 1][_x] &&
+    !matrix[_y - 1][_x + 1]
+  )
+    _out.push(shape1x1.id, shape1x2.id, shape11_01.id) /*11_01*/;
+  else if (
+    !matrix[_y][_x] &&
+    !matrix[_y][_x + 1] &&
+    !matrix[_y - 1][_x] &&
+    matrix[_y - 1][_x + 1]
+  )
+    _out.push(shape1x1.id, shape1x2.id, shape2x1.id, shape10_11.id) /*10_11*/;
+  else if (
+    !matrix[_y][_x] &&
+    !matrix[_y][_x + 1] &&
+    matrix[_y - 1][_x] &&
+    !matrix[_y - 1][_x + 1]
+  )
+    _out.push(shape1x1.id, shape2x1.id, shape01_11.id) /*01_11*/;
+  else if (!matrix[_y][_x] && !matrix[_y][_x + 1])
+    _out.push(shape1x1.id, shape2x1.id) /*2x1*/;
+  else if (!matrix[_y][_x] && !matrix[_y - 1][_x])
+    _out.push(shape1x1.id, shape1x2.id) /*1x2*/;
+  else if (!matrix[_y][_x]) _out.push(shape1x1.id) /*1x1*/;
+
+  return _out;
+}
+
 class battery {
   private battery: HTMLDivElement;
 
@@ -120,63 +174,67 @@ class battery {
     return;
   }
 
-  public generateBattery(_load: number) {
-    var y: number;
-    var x: number;
+  public async generateBattery(_load: number) {
     var s: shapes;
     var ms: shapes[];
-    for (var i: number = 1; i <= _load; i++) {
-      y = matrix.length - getBatteryLeyer(i) - 2;
-      x = getRandomInt(10);
-      s = null;
-      ms = [];
-      if (!matrix[y][x]) {
-        switch (getRandomInt(8)) {
-          case 0: {
-            s = new shape1x1(x, y, "red", this.ctx);
-            ms.push(s);
-            break;
+    var mn: number[];
+    for (
+      var y: number = matrix.length - 2;
+      y >= matrix.length - 1 - getBatteryLeyer(_load);
+      y--
+    ) {
+      if (y == 0) {
+        for (var x = 0; x < matrix[0].length; x++) {
+          if (!matrix[0][x]) {
+            s = new shape1x1(x, 0, "red", this.ctx);
           }
-          case 1: {
-            s = new shape1x2(x, y, "red", this.ctx);
-            ms.push(s);
-            break;
-          }
-          case 2: {
-            s = new shape2x2(x, y, "red", this.ctx);
-            ms.push(s);
-            break;
-          }
-          case 3: {
-            s = new shape2x1(x, y, "red", this.ctx);
-            ms.push(s);
-            break;
-          }
-          case 4: {
-            s = new shape01_11(x, y, "red", this.ctx);
-            ms.push(s);
-            break;
-          }
-          case 5: {
-            s = new shape10_11(x, y, "red", this.ctx);
-            ms.push(s);
-            break;
-          }
-          case 6: {
-            s = new shape11_01(x, y, "red", this.ctx);
-            ms.push(s);
-            break;
-          }
-          case 7: {
-            s = new shape11_10(x, y, "red", this.ctx);
-            ms.push(s);
-            break;
+        }
+      } else {
+        for (var x = 0; x < matrix[0].length; x++) {
+          s = null;
+          mn = getPlace(x, y);
+          if (mn.length != 0) {
+            switch (mn[getRandomInt(mn.length)]) {
+              case shape1x1.id: {
+                s = new shape1x1(x, y, "red", this.ctx);
+                break;
+              }
+              case shape1x2.id: {
+                s = new shape1x2(x, y - 1, "blue", this.ctx);
+                break;
+              }
+              case shape2x2.id: {
+                s = new shape2x2(x, y - 1, "yellow", this.ctx);
+                break;
+              }
+              case shape2x1.id: {
+                s = new shape2x1(x, y, "orange", this.ctx);
+                break;
+              }
+              case shape01_11.id: {
+                s = new shape01_11(x, y - 1, "green", this.ctx);
+                break;
+              }
+              case shape10_11.id: {
+                s = new shape10_11(x, y - 1, "pink", this.ctx);
+                break;
+              }
+              case shape11_01.id: {
+                s = new shape11_01(x, y - 1, "cyan", this.ctx);
+                break;
+              }
+              case shape11_10.id: {
+                s = new shape11_10(x - 1, y - 1, "brown", this.ctx);
+                break;
+              }
+            }
+            await sleep(100)
           }
         }
       }
-      this.matrix.push(ms);
+      console.log("out of i loop");
     }
-    console.log(this.matrix);
+    return Promise.resolve()
   }
 }
 
