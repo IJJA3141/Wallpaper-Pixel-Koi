@@ -191,7 +191,6 @@ class battery {
         }
       } else {
         for (var x = 0; x < matrix[0].length; x++) {
-          s = null;
           mn = getPlace(x, y);
           if (mn.length != 0) {
             switch (mn[getRandomInt(mn.length)]) {

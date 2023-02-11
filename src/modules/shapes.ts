@@ -2373,7 +2373,7 @@ class shapes {
   protected x: number;
   protected y: number;
   public color: string;
-  
+
   constructor(
     _x: number,
     _y: number,
@@ -2395,7 +2395,7 @@ class shapes {
 }
 
 class shape1x1 extends shapes {
-  static id:number = 0
+  static id: number = 0;
 
   constructor(
     _x: number,
@@ -2432,7 +2432,7 @@ class shape1x1 extends shapes {
 }
 
 class shape1x2 extends shapes {
-  static id:number = 1
+  static id: number = 1;
 
   constructor(
     _x: number,
@@ -2475,7 +2475,7 @@ class shape1x2 extends shapes {
 }
 
 class shape2x2 extends shapes {
-  static id:number = 2
+  static id: number = 2;
 
   constructor(
     _x: number,
@@ -2531,7 +2531,7 @@ class shape2x2 extends shapes {
 }
 
 class shape2x1 extends shapes {
-  static id:number = 3
+  static id: number = 3;
 
   constructor(
     _x: number,
@@ -2575,7 +2575,7 @@ class shape2x1 extends shapes {
 }
 
 class shape10_11 extends shapes {
-  static id:number = 4
+  static id: number = 4;
 
   private topHalf: shape1x1;
   private downHalf: shape2x1;
@@ -2614,8 +2614,8 @@ class shape10_11 extends shapes {
 }
 
 class shape01_11 extends shapes {
-  static id:number = 5
-  
+  static id: number = 5;
+
   private topHalf: shape1x1;
   private downHalf: shape2x1;
 
@@ -2653,8 +2653,8 @@ class shape01_11 extends shapes {
 }
 
 class shape11_01 extends shapes {
-  static id:number = 6
-  
+  static id: number = 6;
+
   private topHalf: shape2x1;
   private downHalf: shape1x1;
 
@@ -2692,8 +2692,8 @@ class shape11_01 extends shapes {
 }
 
 class shape11_10 extends shapes {
-  static id:number = 7
-  
+  static id: number = 7;
+
   private topHalf: shape2x1;
   private downHalf: shape1x1;
 
