@@ -1,15 +1,89 @@
 import {
-  i_shape,
+  shapes,
   shape1x1,
   shape1x2,
   shape2x2,
   shape2x1,
-  shape01_11,
   shape10_11,
+  shape01_11,
   shape11_01,
   shape11_10,
+  緑,
+  黄色,
+  オレンジ,
+  赤,
+  matrix,
 } from "./shapes.js";
-import { matrix, sleep, getRandomInt, 緑, 赤, 黄色 } from "./header.js";
+
+const chargingText: string = "Time remaining until full charge:";
+const disChargingText: string = "Time remaining unttil discharge:";
+
+declare var Promise: any;
+function sleep(_timeout: number) {
+  return new Promise((resolve: TimerHandler) => setTimeout(resolve, _timeout));
+}
+
+function getBatteryLeyer(_x: number): number {
+  return Math.ceil(_x / 2);
+}
+
+function getRandomInt(max: number): number {
+  return Math.floor(Math.random() * max);
+}
+
+function getPlace(_x: number, _y: number): number[] {
+  var _out: number[] = new Array();
+  if (
+    matrix[_y][_x - 1] &&
+    !matrix[_y][_x] &&
+    !matrix[_y - 1][_x - 1] &&
+    !matrix[_y - 1][_x]
+  )
+    _out.push(shape11_10.id) /*11_10*/;
+  if (
+    !matrix[_y][_x] &&
+    !matrix[_y][_x + 1] &&
+    !matrix[_y - 1][_x] &&
+    !matrix[_y - 1][_x + 1]
+  )
+    _out.push(
+      shape1x1.id,
+      shape1x2.id,
+      shape2x2.id,
+      shape2x1.id,
+      shape01_11.id,
+      shape10_11.id,
+      shape11_01.id
+    ) /*4x4 clear*/;
+  else if (
+    !matrix[_y][_x] &&
+    matrix[_y][_x + 1] &&
+    !matrix[_y - 1][_x] &&
+    !matrix[_y - 1][_x + 1]
+  )
+    _out.push(shape1x1.id, shape1x2.id, shape11_01.id) /*11_01*/;
+  else if (
+    !matrix[_y][_x] &&
+    !matrix[_y][_x + 1] &&
+    !matrix[_y - 1][_x] &&
+    matrix[_y - 1][_x + 1]
+  )
+    _out.push(shape1x1.id, shape1x2.id, shape2x1.id, shape10_11.id) /*10_11*/;
+  else if (
+    !matrix[_y][_x] &&
+    !matrix[_y][_x + 1] &&
+    matrix[_y - 1][_x] &&
+    !matrix[_y - 1][_x + 1]
+  )
+    _out.push(shape1x1.id, shape2x1.id, shape01_11.id) /*01_11*/;
+  else if (!matrix[_y][_x] && !matrix[_y][_x + 1])
+    _out.push(shape1x1.id, shape2x1.id) /*2x1*/;
+  else if (!matrix[_y][_x] && !matrix[_y - 1][_x])
+    _out.push(shape1x1.id, shape1x2.id) /*1x2*/;
+  else if (!matrix[_y][_x]) _out.push(shape1x1.id) /*1x1*/;
+
+  return _out;
+}
 
 class battery {
   private battery: HTMLDivElement;
@@ -28,7 +102,7 @@ class battery {
 
   public chargingState: boolean;
 
-  private matrix: i_shape[][];
+  private matrix: shapes[][];
 
   constructor(_parent: HTMLElement) {
     this.battery = document.createElement("div");
@@ -81,147 +155,85 @@ class battery {
 
     _parent.appendChild(this.battery);
 
+    //old format (6x30 = 102/510 --> 17x17, 8x40 = 104/520 --> 13x13, 20x100 = 90/450 --> 4.5x4.5)
     // 10x50 = 90/450 --> 9x9
-    this.ctx = <CanvasRenderingContext2D>this.canvasDown.getContext("2d");
+    this.ctx = this.canvasDown.getContext("2d");
     this.canvasDown.width = 90;
     this.canvasDown.height = 450;
 
+    /*
+    var a: shape11_01 = new shape11_01(5, 0, 緑[2], this.ctx);
+    (async () => {
+      for (var i = 0; i < 100; i++) {
+        await sleep(400);
+        a.drop();
+      }
+      return Promise.resolve();
+    })();
+    */
     return;
   }
 
-  private getPlace(_x: number, _y: number): number[] {
-    var _out: number[] = new Array();
-    if (
-      matrix[_y][_x - 1] &&
-      !matrix[_y][_x] &&
-      !matrix[_y - 1][_x - 1] &&
-      !matrix[_y - 1][_x]
-    )
-      _out.push(shape11_10.id) /*11_10*/;
-    if (
-      !matrix[_y][_x] &&
-      !matrix[_y][_x + 1] &&
-      !matrix[_y - 1][_x] &&
-      !matrix[_y - 1][_x + 1]
-    )
-      _out.push(
-        shape1x1.id,
-        shape1x2.id,
-        shape2x2.id,
-        shape2x1.id,
-        shape01_11.id,
-        shape10_11.id,
-        shape11_01.id
-      ) /*4x4 clear*/;
-    else if (
-      !matrix[_y][_x] &&
-      matrix[_y][_x + 1] &&
-      !matrix[_y - 1][_x] &&
-      !matrix[_y - 1][_x + 1]
-    )
-      _out.push(shape1x1.id, shape1x2.id, shape11_01.id) /*11_01*/;
-    else if (
-      !matrix[_y][_x] &&
-      !matrix[_y][_x + 1] &&
-      !matrix[_y - 1][_x] &&
-      matrix[_y - 1][_x + 1]
-    )
-      _out.push(shape1x1.id, shape1x2.id, shape2x1.id, shape10_11.id) /*10_11*/;
-    else if (
-      !matrix[_y][_x] &&
-      !matrix[_y][_x + 1] &&
-      matrix[_y - 1][_x] &&
-      !matrix[_y - 1][_x + 1]
-    )
-      _out.push(shape1x1.id, shape2x1.id, shape10_11.id) /*01_11*/;
-    else if (!matrix[_y][_x] && !matrix[_y][_x + 1])
-      _out.push(shape1x1.id, shape2x1.id) /*2x1*/;
-    else if (!matrix[_y][_x] && !matrix[_y - 1][_x])
-      _out.push(shape1x1.id, shape1x2.id) /*1x2*/;
-    else if (!matrix[_y][_x]) _out.push(shape1x1.id) /*1x1*/;
-
-    return _out;
-  }
-
-  /* still need to implemant color */
-  public generateBattery(_load: number): void {
-    var color: string[] = ((_load: number): string[] => {
-      if (_load < 31) {
-        return 赤;
-      } else if (_load < 51) {
-        return 黄色;
-      } else {
-        return 緑;
-      }
-    })(_load);
-    var s: i_shape;
-    var ms: i_shape[];
+  public async generateBattery(_load: number) {
+    var s: shapes;
+    var ms: shapes[];
     var mn: number[];
     for (
       var y: number = matrix.length - 2;
-      y >= matrix.length - 1 - Math.ceil(_load / 2);
+      y >= matrix.length - 1 - getBatteryLeyer(_load);
       y--
     ) {
-      ms = [];
       if (y == 0) {
         for (var x = 0; x < matrix[0].length; x++) {
           if (!matrix[0][x]) {
-            s = new shape1x1(x, 0, this.ctx, color[getRandomInt(color.length)]);
-            ms.push(s);
+            s = new shape1x1(x, 0, "red", this.ctx);
           }
         }
       } else {
         for (var x = 0; x < matrix[0].length; x++) {
-          mn = this.getPlace(x, y);
+          mn = getPlace(x, y);
           if (mn.length != 0) {
             switch (mn[getRandomInt(mn.length)]) {
               case shape1x1.id: {
-                s = new shape1x1(x, y, this.ctx, color[getRandomInt(color.length)]);
-                ms.push(s);
+                s = new shape1x1(x, y, "red", this.ctx);
                 break;
               }
               case shape1x2.id: {
-                s = new shape1x2(x, y - 1, this.ctx, color[getRandomInt(color.length)]);
-                ms.push(s);
+                s = new shape1x2(x, y - 1, "blue", this.ctx);
                 break;
               }
               case shape2x2.id: {
-                s = new shape2x2(x, y - 1, this.ctx, color[getRandomInt(color.length)]);
-                ms.push(s);
+                s = new shape2x2(x, y - 1, "yellow", this.ctx);
                 break;
               }
               case shape2x1.id: {
-                s = new shape2x1(x, y, this.ctx, color[getRandomInt(color.length)]);
-                ms.push(s);
+                s = new shape2x1(x, y, "orange", this.ctx);
                 break;
               }
               case shape01_11.id: {
-                s = new shape01_11(x, y - 1, this.ctx, color[getRandomInt(color.length)]);
-                ms.push(s);
+                s = new shape01_11(x, y - 1, "green", this.ctx);
                 break;
               }
               case shape10_11.id: {
-                s = new shape10_11(x, y - 1, this.ctx, color[getRandomInt(color.length)]);
-                ms.push(s);
+                s = new shape10_11(x, y - 1, "pink", this.ctx);
                 break;
               }
               case shape11_01.id: {
-                s = new shape11_01(x, y - 1, this.ctx, color[getRandomInt(color.length)]);
-                ms.push(s);
+                s = new shape11_01(x, y - 1, "cyan", this.ctx);
                 break;
               }
               case shape11_10.id: {
-                s = new shape11_10(x - 1, y - 1, this.ctx, color[getRandomInt(color.length)]);
-                ms.push(s);
+                s = new shape11_10(x - 1, y - 1, "brown", this.ctx);
                 break;
               }
             }
+            await sleep(100)
           }
         }
       }
-      this.matrix.push(ms);
+      console.log("out of i loop");
     }
-    return;
+    return Promise.resolve()
   }
 }
 
