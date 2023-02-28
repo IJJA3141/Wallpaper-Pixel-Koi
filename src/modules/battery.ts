@@ -9,7 +9,15 @@ import {
   shape11_01,
   shape11_10,
 } from "./shapes.js";
-import { matrix, sleep, getRandomInt, 緑, 赤, 黄色 } from "./header.js";
+import {
+  matrix,
+  sleep,
+  getRandomInt,
+  緑,
+  赤,
+  黄色,
+  オレンジ,
+} from "./header.js";
 
 class battery {
   private battery: HTMLDivElement;
@@ -83,8 +91,8 @@ class battery {
 
     // 10x50 = 90/450 --> 9x9
     this.ctx = <CanvasRenderingContext2D>this.canvasDown.getContext("2d");
-    this.canvasDown.width = 90;
-    this.canvasDown.height = 450;
+    this.canvasDown.width = screen.width / 500 * 2 * 10;
+    this.canvasDown.height = screen.height / 288 * 2 * 40;
 
     return;
   }
@@ -146,8 +154,10 @@ class battery {
   /* still need to implemant color */
   public generateBattery(_load: number): void {
     var color: string[] = ((_load: number): string[] => {
-      if (_load < 31) {
+      if (_load < 21) {
         return 赤;
+      } else if (_load < 41) {
+        return オレンジ;
       } else if (_load < 51) {
         return 黄色;
       } else {
@@ -176,42 +186,82 @@ class battery {
           if (mn.length != 0) {
             switch (mn[getRandomInt(mn.length)]) {
               case shape1x1.id: {
-                s = new shape1x1(x, y, this.ctx, color[getRandomInt(color.length)]);
+                s = new shape1x1(
+                  x,
+                  y,
+                  this.ctx,
+                  color[getRandomInt(color.length)]
+                );
                 ms.push(s);
                 break;
               }
               case shape1x2.id: {
-                s = new shape1x2(x, y - 1, this.ctx, color[getRandomInt(color.length)]);
+                s = new shape1x2(
+                  x,
+                  y - 1,
+                  this.ctx,
+                  color[getRandomInt(color.length)]
+                );
                 ms.push(s);
                 break;
               }
               case shape2x2.id: {
-                s = new shape2x2(x, y - 1, this.ctx, color[getRandomInt(color.length)]);
+                s = new shape2x2(
+                  x,
+                  y - 1,
+                  this.ctx,
+                  color[getRandomInt(color.length)]
+                );
                 ms.push(s);
                 break;
               }
               case shape2x1.id: {
-                s = new shape2x1(x, y, this.ctx, color[getRandomInt(color.length)]);
+                s = new shape2x1(
+                  x,
+                  y,
+                  this.ctx,
+                  color[getRandomInt(color.length)]
+                );
                 ms.push(s);
                 break;
               }
               case shape01_11.id: {
-                s = new shape01_11(x, y - 1, this.ctx, color[getRandomInt(color.length)]);
+                s = new shape01_11(
+                  x,
+                  y - 1,
+                  this.ctx,
+                  color[getRandomInt(color.length)]
+                );
                 ms.push(s);
                 break;
               }
               case shape10_11.id: {
-                s = new shape10_11(x, y - 1, this.ctx, color[getRandomInt(color.length)]);
+                s = new shape10_11(
+                  x,
+                  y - 1,
+                  this.ctx,
+                  color[getRandomInt(color.length)]
+                );
                 ms.push(s);
                 break;
               }
               case shape11_01.id: {
-                s = new shape11_01(x, y - 1, this.ctx, color[getRandomInt(color.length)]);
+                s = new shape11_01(
+                  x,
+                  y - 1,
+                  this.ctx,
+                  color[getRandomInt(color.length)]
+                );
                 ms.push(s);
                 break;
               }
               case shape11_10.id: {
-                s = new shape11_10(x - 1, y - 1, this.ctx, color[getRandomInt(color.length)]);
+                s = new shape11_10(
+                  x - 1,
+                  y - 1,
+                  this.ctx,
+                  color[getRandomInt(color.length)]
+                );
                 ms.push(s);
                 break;
               }

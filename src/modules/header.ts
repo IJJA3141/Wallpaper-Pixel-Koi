@@ -35,28 +35,14 @@ const 赤: string[] = [
   "#D30000",
   "#DA1E37",
   "#E01E37",
-  "#FF4800",
-  "#FF5400",
-  "#FF6000",
-  "#FF6D00",
-  "#FF7900",
-  "#FF8500",
-  "#FF9100",
 ];
 
 const 黄色: string[] = [
-  "#EEEF20",
-  "#FFA200",
   "#CCFF33",
   "#D4D700",
   "#DDDF00",
-  "#EB5E28",
-  "#F27F34",
+  "#EEEF20",
   "#F6B049",
-  "#F9A03F",
-  "#FF7B00",
-  "#FF8800",
-  "#FF9500",
   "#FFAA00",
   "#FFB600",
   "#FFB700",
@@ -64,6 +50,48 @@ const 黄色: string[] = [
   "#FFD000",
   "#FFDD00",
 ];
+
+const オレンジ: string[] = [
+  "#EB5E28",
+  "#F27F34",
+  "#F9A03F",
+  "#FF4800",
+  "#FF5400",
+  "#FF6000",
+  "#FF6D00",
+  "#FF7900",
+  "#FF8500",
+  "#FF9100",
+  "#FFA200",
+  "#FF7900",
+  "#FF8500",
+  "#FF9100",
+  "#FF9E00",
+  "#FFAA00",
+  "#FFB600",
+  "#"
+];
+
+const 色: string[] = [
+  "#641220",
+  "#6E1423",
+  "#85182A",
+  "#A11D33",
+  "#A71E34",
+  "#B21E35",
+  "#BD1F36",
+  "#C71F37",
+  "#DA1E37",
+  "#E01E37",
+  "#D30000",
+  "#B50000",
+  "#980000",
+  "#FF4800",
+  "#FF5400",
+  "#FF6000",
+  "#FF6D00",
+
+]
 
 // tiles system
 const ドット: number = 9;
@@ -131,4 +159,4 @@ function getRandomInt(max: number): number {
   return Math.floor(Math.random() * max);
 }
 
-export { 緑, 赤, 黄色, ドット, matrix, sleep, getRandomInt };
+export { 緑, 赤, 黄色, オレンジ, ドット, matrix, sleep, getRandomInt };
