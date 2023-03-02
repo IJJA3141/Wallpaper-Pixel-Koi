@@ -32,7 +32,7 @@ class matrix {
   get fillHeight(): number {
     for (var i: number = this.matrix.length - 1; i >= 0; i--) {
       if (!this.matrix[i].full) {
-        return (this.matrix.length - i) + 1;
+        return this.matrix.length - i + 1;
       }
     }
     return this.matrix.length;
@@ -44,6 +44,34 @@ class matrix {
     for (var i = 0; i < _height; i++) {
       this.matrix.push(new row(_width, _baseValue));
     }
+  }
+
+  public getBuffer(_x: number, _y: number): boolean[][] {
+    var buffer2D: boolean[][] = new Array(2);
+
+    if (_y == 0) {
+      buffer2D[0] = [true, true, true];
+      buffer2D[1].push(this.matrix[_y].row[_x]);
+
+      if (_x + 1 < this.m_width) {
+        buffer2D[1].push(this.matrix[_y].row[_x + 1]);
+      } else {
+        buffer2D[1].push(true);
+      }
+    } else {
+      buffer2D[0].push(this.matrix[_y - 1].row[_x]);
+      buffer2D[1].push(this.matrix[_y].row[_x]);
+
+      if (_x + 1 < this.m_width) {
+        buffer2D[0].push(this.matrix[_y - 1].row[_x + 1]);
+        buffer2D[1].push(this.matrix[_y].row[_x + 1]);
+      } else {
+        buffer2D[0].push(true);
+        buffer2D[1].push(true);
+      }
+    }
+
+    return buffer2D;
   }
 }
 

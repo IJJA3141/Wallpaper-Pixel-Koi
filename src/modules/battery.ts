@@ -65,63 +65,24 @@ class battery {
 
   private m_addTile(_y: number) {
     _y -= 2;
-    this.m_getTile(_y);
-  }
 
-  private m_getTile(_y: number) {
     var x: number = getRandomInt(this.m_matrix.width);
-    var buffer2D: boolean[][] = new Array(2);
+    var buffer: boolean[][] = this.m_matrix.getBuffer(x, _y);
+    var bool: Boolean = false;
 
-    if (_y == 0) {
-      buffer2D[0] = [true, true, true];
-
-      if (x - 1 < 0) {
-        buffer2D[1].push(true);
-      } else {
-        buffer2D[1].push(this.m_matrix[_y].row[x - 1]);
-      }
-
-      buffer2D[1].push(this.m_matrix[_y].row[x]);
-
-      if (x + 1 >= this.m_matrix.width) {
-        buffer2D[1].push(this.m_matrix[_y].row[x + 1]);
-      } else {
-        buffer2D[1].push(true);
-      }
-    } else {
-      if (x - 1 < 0) {
-        buffer2D[0].push(true);
-        buffer2D[1].push(true);
-      } else {
-        buffer2D[0].push(this.m_matrix[_y - 1].row[x - 1]);
-        buffer2D[1].push(this.m_matrix[_y].row[x - 1]);
-      }
-
-      buffer2D[0].push(this.m_matrix[_y - 1].row[x]);
-      buffer2D[1].push(this.m_matrix[_y].row[x]);
-
-      if (x + 1 >= this.m_matrix.width) {
-        buffer2D[0].push(this.m_matrix[_y - 1].row[x + 1]);
-        buffer2D[1].push(this.m_matrix[_y].row[x + 1]);
-      } else {
-        buffer2D[0].push(true);
-        buffer2D[1].push(true);
-      }
-    }
-
-    var rngValue: number = getRandomInt(tile.idList.length);
-    var buffer: number[] = tile.idList;
-
-    switch (buffer[rngValue]) {
-      case tile.idList[0]: {
-        if (!t_1x1.spawnable(buffer2D)) {
-          /* only dl & dr are spawnable */
-          // => [?][?][?]
-          //    [?][1][?]
-          
+    while (!bool) {
+      switch (tile.spawnable(buffer)) {
+        case -1: {
+          bool = false;
         }
-      }
-      case tile.idList[1]: {
+        case 0: {
+        }
+        case 1: {
+        }
+        case 2: {
+        }
+        case 3: {
+        }
       }
     }
   }
