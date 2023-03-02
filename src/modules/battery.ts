@@ -1,277 +1,129 @@
+import { getRandomInt } from "./header.js";
+import { createDOM, sleep } from "./header.js";
+import { matrix } from "./matrix.js";
 import {
-  i_shape,
-  shape1x1,
-  shape1x2,
-  shape2x2,
-  shape2x1,
-  shape01_11,
-  shape10_11,
-  shape11_01,
-  shape11_10,
-} from "./shapes.js";
-import {
-  matrix,
-  sleep,
-  getRandomInt,
-  緑,
-  赤,
-  黄色,
-  オレンジ,
-} from "./header.js";
+  tile,
+  t_1x1,
+  t_1x2,
+  t_2x2,
+  t_2x1,
+  t_tl,
+  t_tr,
+  t_dl,
+  t_dr,
+} from "./tiles.js";
 
 class battery {
-  private battery: HTMLDivElement;
+  public;
 
-  private left: HTMLDivElement;
-  public canvasDown: HTMLCanvasElement;
-  public ctx: CanvasRenderingContext2D;
+  private m_matrix: matrix;
 
-  private right: HTMLDivElement;
-  private loadText: HTMLParagraphElement;
-  private loadUnderline: HTMLDivElement;
-  public load: HTMLParagraphElement;
-  public chargeText: HTMLParagraphElement;
-  private chargeUnderline: HTMLDivElement;
-  public charge: HTMLParagraphElement;
+  private m_battery: HTMLDivElement;
+  private m_left: HTMLDivElement;
+  private m_right: HTMLDivElement;
 
-  public chargingState: boolean;
+  private m_canvas: HTMLCanvasElement;
 
-  private matrix: i_shape[][];
+  set load(_load: number) {
+    _load *= this.m_matrix.height / 100;
+    var fillHeight: number = this.m_matrix.fillHeight;
+    while (_load < fillHeight) {
+      /*remove tile*/
+
+      fillHeight = this.m_matrix.fillHeight;
+    }
+    while (_load > fillHeight) {
+      /*add tile*/
+      this.m_addTile(fillHeight);
+
+      fillHeight = this.m_matrix.fillHeight;
+    }
+
+    /* up date text */
+    //
+    //
+    //
+    //
+
+    return;
+  }
 
   constructor(_parent: HTMLElement) {
-    this.battery = document.createElement("div");
-    this.left = document.createElement("div");
-    this.right = document.createElement("div");
-    this.loadUnderline = document.createElement("div");
-    this.chargeUnderline = document.createElement("div");
+    this.m_battery = <HTMLDivElement>createDOM("div", "battery");
 
-    this.loadText = document.createElement("p");
-    this.load = document.createElement("p");
-    this.chargeText = document.createElement("p");
-    this.charge = document.createElement("p");
+    this.m_left = <HTMLDivElement>createDOM("div", "batteryLeft");
+    this.m_right = <HTMLDivElement>createDOM("div", "batteryRight");
 
-    this.canvasDown = document.createElement("canvas");
+    this.m_canvas = <HTMLCanvasElement>createDOM("canvas", "batteryCanvas");
 
-    this.battery.id = "battery";
-    this.battery.className = "uiBackground";
+    this.m_left.appendChild(this.m_canvas);
+    this.m_battery.appendChild(this.m_left);
+    this.m_battery.appendChild(this.m_right);
 
-    this.left.id = "batteryLeft";
-    this.right.id = "batteryRight";
-
-    this.loadText.id = "batteryLoadText";
-    this.loadUnderline.id = "batteryLoadUnderline";
-    this.load.id = "batteryLoad";
-    this.chargeText.id = "batteryChageText";
-    this.chargeUnderline.id = "batteryChargeUnderline";
-    this.charge.id = "batteryCharge";
-
-    this.canvasDown.id = "batteryCanvasDown";
-
-    this.loadText.innerText = "Load:";
-    this.load.innerText = "100%";
-
-    this.chargeText.innerText = "charge:";
-    this.charge.innerText = "00:00:00";
-
-    this.left.appendChild(this.canvasDown);
-
-    this.right.appendChild(this.loadText);
-    this.right.appendChild(this.loadUnderline);
-    this.right.appendChild(this.load);
-    this.right.appendChild(this.chargeText);
-    this.right.appendChild(this.chargeUnderline);
-    this.right.appendChild(this.charge);
-
-    this.battery.appendChild(this.left);
-    this.battery.appendChild(this.right);
-
-    this.matrix = new Array();
-
-    _parent.appendChild(this.battery);
-
-    // 10x50 = 90/450 --> 9x9
-    this.ctx = <CanvasRenderingContext2D>this.canvasDown.getContext("2d");
-    this.canvasDown.width = screen.width / 500 * 2 * 10;
-    this.canvasDown.height = screen.height / 288 * 2 * 40;
-
-    return;
+    this.m_matrix = new matrix(40, 20);
   }
 
-  private getPlace(_x: number, _y: number): number[] {
-    var _out: number[] = new Array();
-    if (
-      matrix[_y][_x - 1] &&
-      !matrix[_y][_x] &&
-      !matrix[_y - 1][_x - 1] &&
-      !matrix[_y - 1][_x]
-    )
-      _out.push(shape11_10.id) /*11_10*/;
-    if (
-      !matrix[_y][_x] &&
-      !matrix[_y][_x + 1] &&
-      !matrix[_y - 1][_x] &&
-      !matrix[_y - 1][_x + 1]
-    )
-      _out.push(
-        shape1x1.id,
-        shape1x2.id,
-        shape2x2.id,
-        shape2x1.id,
-        shape01_11.id,
-        shape10_11.id,
-        shape11_01.id
-      ) /*4x4 clear*/;
-    else if (
-      !matrix[_y][_x] &&
-      matrix[_y][_x + 1] &&
-      !matrix[_y - 1][_x] &&
-      !matrix[_y - 1][_x + 1]
-    )
-      _out.push(shape1x1.id, shape1x2.id, shape11_01.id) /*11_01*/;
-    else if (
-      !matrix[_y][_x] &&
-      !matrix[_y][_x + 1] &&
-      !matrix[_y - 1][_x] &&
-      matrix[_y - 1][_x + 1]
-    )
-      _out.push(shape1x1.id, shape1x2.id, shape2x1.id, shape10_11.id) /*10_11*/;
-    else if (
-      !matrix[_y][_x] &&
-      !matrix[_y][_x + 1] &&
-      matrix[_y - 1][_x] &&
-      !matrix[_y - 1][_x + 1]
-    )
-      _out.push(shape1x1.id, shape2x1.id, shape10_11.id) /*01_11*/;
-    else if (!matrix[_y][_x] && !matrix[_y][_x + 1])
-      _out.push(shape1x1.id, shape2x1.id) /*2x1*/;
-    else if (!matrix[_y][_x] && !matrix[_y - 1][_x])
-      _out.push(shape1x1.id, shape1x2.id) /*1x2*/;
-    else if (!matrix[_y][_x]) _out.push(shape1x1.id) /*1x1*/;
-
-    return _out;
+  private m_addTile(_y: number) {
+    _y -= 2;
+    this.m_getTile(_y);
   }
 
-  /* still need to implemant color */
-  public generateBattery(_load: number): void {
-    var color: string[] = ((_load: number): string[] => {
-      if (_load < 21) {
-        return 赤;
-      } else if (_load < 41) {
-        return オレンジ;
-      } else if (_load < 51) {
-        return 黄色;
+  private m_getTile(_y: number) {
+    var x: number = getRandomInt(this.m_matrix.width);
+    var buffer2D: boolean[][] = new Array(2);
+
+    if (_y == 0) {
+      buffer2D[0] = [true, true, true];
+
+      if (x - 1 < 0) {
+        buffer2D[1].push(true);
       } else {
-        return 緑;
+        buffer2D[1].push(this.m_matrix[_y].row[x - 1]);
       }
-    })(_load);
-    var s: i_shape;
-    var ms: i_shape[];
-    var mn: number[];
-    for (
-      var y: number = matrix.length - 2;
-      y >= matrix.length - 1 - Math.ceil(_load / 2);
-      y--
-    ) {
-      ms = [];
-      if (y == 0) {
-        for (var x = 0; x < matrix[0].length; x++) {
-          if (!matrix[0][x]) {
-            s = new shape1x1(x, 0, this.ctx, color[getRandomInt(color.length)]);
-            ms.push(s);
-          }
-        }
+
+      buffer2D[1].push(this.m_matrix[_y].row[x]);
+
+      if (x + 1 >= this.m_matrix.width) {
+        buffer2D[1].push(this.m_matrix[_y].row[x + 1]);
       } else {
-        for (var x = 0; x < matrix[0].length; x++) {
-          mn = this.getPlace(x, y);
-          if (mn.length != 0) {
-            switch (mn[getRandomInt(mn.length)]) {
-              case shape1x1.id: {
-                s = new shape1x1(
-                  x,
-                  y,
-                  this.ctx,
-                  color[getRandomInt(color.length)]
-                );
-                ms.push(s);
-                break;
-              }
-              case shape1x2.id: {
-                s = new shape1x2(
-                  x,
-                  y - 1,
-                  this.ctx,
-                  color[getRandomInt(color.length)]
-                );
-                ms.push(s);
-                break;
-              }
-              case shape2x2.id: {
-                s = new shape2x2(
-                  x,
-                  y - 1,
-                  this.ctx,
-                  color[getRandomInt(color.length)]
-                );
-                ms.push(s);
-                break;
-              }
-              case shape2x1.id: {
-                s = new shape2x1(
-                  x,
-                  y,
-                  this.ctx,
-                  color[getRandomInt(color.length)]
-                );
-                ms.push(s);
-                break;
-              }
-              case shape01_11.id: {
-                s = new shape01_11(
-                  x,
-                  y - 1,
-                  this.ctx,
-                  color[getRandomInt(color.length)]
-                );
-                ms.push(s);
-                break;
-              }
-              case shape10_11.id: {
-                s = new shape10_11(
-                  x,
-                  y - 1,
-                  this.ctx,
-                  color[getRandomInt(color.length)]
-                );
-                ms.push(s);
-                break;
-              }
-              case shape11_01.id: {
-                s = new shape11_01(
-                  x,
-                  y - 1,
-                  this.ctx,
-                  color[getRandomInt(color.length)]
-                );
-                ms.push(s);
-                break;
-              }
-              case shape11_10.id: {
-                s = new shape11_10(
-                  x - 1,
-                  y - 1,
-                  this.ctx,
-                  color[getRandomInt(color.length)]
-                );
-                ms.push(s);
-                break;
-              }
-            }
-          }
-        }
+        buffer2D[1].push(true);
       }
-      this.matrix.push(ms);
+    } else {
+      if (x - 1 < 0) {
+        buffer2D[0].push(true);
+        buffer2D[1].push(true);
+      } else {
+        buffer2D[0].push(this.m_matrix[_y - 1].row[x - 1]);
+        buffer2D[1].push(this.m_matrix[_y].row[x - 1]);
+      }
+
+      buffer2D[0].push(this.m_matrix[_y - 1].row[x]);
+      buffer2D[1].push(this.m_matrix[_y].row[x]);
+
+      if (x + 1 >= this.m_matrix.width) {
+        buffer2D[0].push(this.m_matrix[_y - 1].row[x + 1]);
+        buffer2D[1].push(this.m_matrix[_y].row[x + 1]);
+      } else {
+        buffer2D[0].push(true);
+        buffer2D[1].push(true);
+      }
     }
-    return;
+
+    var rngValue: number = getRandomInt(tile.idList.length);
+    var buffer: number[] = tile.idList;
+
+    switch (buffer[rngValue]) {
+      case tile.idList[0]: {
+        if (!t_1x1.spawnable(buffer2D)) {
+          /* only dl & dr are spawnable */
+          // => [?][?][?]
+          //    [?][1][?]
+          
+        }
+      }
+      case tile.idList[1]: {
+      }
+    }
   }
 }
 

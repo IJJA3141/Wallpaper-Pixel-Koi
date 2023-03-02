@@ -4,6 +4,7 @@
         "removeComments": true,
         "outDir": "../",
         "allowJs":  true,
+        "target": "ES6"
     },
     "files": [
         ".ts"

@@ -10,7 +10,7 @@ const bt: battery = new battery(ui);
 declare var Promise: any;
 (async () => {
   for (var i = 0; i < 101; i++) {
-    bt.generateBattery(i);
+    //bt.generateBattery(i);
     await sleep(200);
   }
   return Promise.resolve();
