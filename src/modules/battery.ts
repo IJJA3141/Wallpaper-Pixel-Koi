@@ -17,6 +17,7 @@ class battery {
   public;
 
   private m_matrix: matrix;
+  private m_tiles: tile[][];
 
   private m_battery: HTMLDivElement;
   private m_left: HTMLDivElement;
@@ -61,6 +62,11 @@ class battery {
     this.m_battery.appendChild(this.m_right);
 
     this.m_matrix = new matrix(40, 20);
+    for (var i: number = 0; i < this.m_matrix.height; i++) {
+      this.m_tiles.push(new Array(this.m_matrix.width));
+    }
+
+    return;
   }
 
   private m_addTile(_y: number) {
