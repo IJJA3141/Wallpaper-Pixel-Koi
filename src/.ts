@@ -15,3 +15,8 @@ declare var Promise: any;
   }
   return Promise.resolve();
 })();
+
+console.log(bt.m_matrix.matrix[0].row[0]);
+bt.m_matrix.log();
+bt.load = 10;
+bt.m_matrix.log();

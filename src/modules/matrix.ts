@@ -10,6 +10,7 @@ class row {
   }
 
   constructor(_length: number, _baseValue: boolean = false) {
+    this.row = new Array();
     for (var i = 0; i < _length; i++) {
       this.row.push(_baseValue);
     }
@@ -41,13 +42,15 @@ class matrix {
   constructor(_height: number, _width: number, _baseValue: boolean = false) {
     this.m_width = _width;
 
+    this.matrix = new Array();
+
     for (var i = 0; i < _height; i++) {
       this.matrix.push(new row(_width, _baseValue));
     }
   }
 
   public getBuffer(_x: number, _y: number): boolean[][] {
-    var buffer2D: boolean[][] = new Array(2);
+    var buffer2D: boolean[][] = [[], []];
 
     if (_y == 0) {
       buffer2D[0] = [true, true, true];
@@ -73,6 +76,19 @@ class matrix {
 
     return buffer2D;
   }
+
+  //debug
+  public log() {
+    var buffer: boolean[][] = new Array(this.height);
+    buffer.fill(new Array(this.width));
+    for (var i: number = 0; i < this.matrix.length; i++) {
+      for (var j: number = 0; j < this.m_width; j++) {
+        buffer[i][j] = this.matrix[i].row[j];
+      }
+    }
+    console.log(buffer);
+    return;
+  }
 }
 
-export { matrix };
+export { matrix, row };
