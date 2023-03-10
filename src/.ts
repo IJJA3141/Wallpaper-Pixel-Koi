@@ -18,16 +18,4 @@ declare var Promise: any;
   return Promise.resolve();
 })();
 
-var a = new tilesSystem(7, 5);
-
-a.m_matrix = [
-  [false, false, false, false, false],
-  [false, false, false, false, false],
-  [false, false, false, false, false],
-  [true, false, false, false, true],
-  [true, true, true, true, true],
-  [true, true, true, true, true],
-  [true, true, true, true, true],
-];
-
-console.log(a.addTile())
+bt.load = 10;

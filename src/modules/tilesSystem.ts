@@ -1,6 +1,15 @@
 import { getRandomInt, indexOfFalse } from "./header.js";
-
-class tiles {}
+import {
+  itile,
+  t_1x1,
+  t_1x2,
+  t_2x2,
+  t_2x1,
+  t_dl,
+  t_dr,
+  t_tl,
+  t_tr,
+} from "./tilesShapes.js";
 
 interface tileIndex {
   x: number[];
@@ -9,7 +18,7 @@ interface tileIndex {
 
 class tilesSystem {
   public m_matrix: boolean[][];
-  private m_tiles: tiles[][];
+  public m_tiles: itile[][];
 
   private m_height: number; // Start at 1
   private m_length: number; // Start at 1
@@ -37,7 +46,8 @@ class tilesSystem {
     this.m_height = _height;
     this.m_length = _length;
 
-    this.m_tiles = new Array<tiles[]>(_height);
+    this.m_tiles = new Array<itile[]>(_height);
+    this.m_tiles.fill(new Array<itile>(0));
 
     var buffer = new Array<boolean>(_length);
     buffer.fill(false);
@@ -90,53 +100,83 @@ class tilesSystem {
       case 0:
         switch (getRandomInt(6)) {
           case 0:
-            console.log(0);
+            this.m_tiles[tileIndexes.y].push(
+              new t_1x1(this.m_matrix, tileIndexes.x[0], tileIndexes.y)
+            );
+
             break;
           case 1:
-            console.log(1);
+            this.m_tiles[tileIndexes.y].push(
+              new t_1x2(this.m_matrix, tileIndexes.x[0], tileIndexes.y)
+            );
+
             break;
           case 2:
-            console.log(2);
+            this.m_tiles[tileIndexes.y].push(
+              new t_2x2(this.m_matrix, tileIndexes.x[0], tileIndexes.y)
+            );
+
             break;
           case 3:
-            console.log(3);
+            this.m_tiles[tileIndexes.y].push(
+              new t_2x1(this.m_matrix, tileIndexes.x[0], tileIndexes.y)
+            );
+
             break;
           case 4:
-            console.log(4);
+            this.m_tiles[tileIndexes.y].push(
+              new t_tr(this.m_matrix, tileIndexes.x[0], tileIndexes.y)
+            );
             break;
           case 5:
-            console.log(5);
+            this.m_tiles[tileIndexes.y].push(
+              new t_tl(this.m_matrix, tileIndexes.x[0], tileIndexes.y)
+            );
             break;
         }
         break;
       case 1:
         switch (getRandomInt(2)) {
           case 0:
-            console.log(6);
+            this.m_tiles[tileIndexes.y].push(
+              new t_1x1(this.m_matrix, tileIndexes.x[0], tileIndexes.y)
+            );
             break;
           case 1:
-            console.log(7);
+            this.m_tiles[tileIndexes.y].push(
+              new t_1x2(this.m_matrix, tileIndexes.x[0], tileIndexes.y)
+            );
             break;
         }
         break;
       case 2:
         switch (getRandomInt(3)) {
           case 0:
-            console.log(8);
+            this.m_tiles[tileIndexes.y].push(
+              new t_1x1(this.m_matrix, tileIndexes.x[0], tileIndexes.y)
+            );
             break;
           case 1:
-            console.log(9);
+            this.m_tiles[tileIndexes.y].push(
+              new t_1x2(this.m_matrix, tileIndexes.x[0], tileIndexes.y)
+            );
             break;
           case 2:
-            console.log(10);
+            this.m_tiles[tileIndexes.y].push(
+              new t_dr(this.m_matrix, tileIndexes.x[0], tileIndexes.y)
+            );
             break;
         }
         break;
       case 3:
-        console.log(11);
+        this.m_tiles[tileIndexes.y].push(
+          new t_dl(this.m_matrix, tileIndexes.x[0], tileIndexes.y)
+        );
         break;
     }
 
+    console.log(this.m_matrix);
+    console.log(this.m_tiles);
     return true;
   }
 }
