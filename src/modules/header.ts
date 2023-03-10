@@ -21,4 +21,10 @@ function createDOM(
   return elem;
 }
 
-export { sleep, getRandomInt, createDOM };
+function indexOfFalse(_array: boolean[]): number[] {
+  var buffer = new Array<number>(0);
+  for (var i = 0; i < _array.length; i++) if (!_array[i]) buffer.push(i);
+  return buffer;
+}
+
+export { sleep, getRandomInt, createDOM, indexOfFalse };

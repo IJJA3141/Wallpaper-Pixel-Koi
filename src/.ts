@@ -3,6 +3,8 @@ import { getBattery } from "./modules/fix.js";
 import { battery } from "./modules/battery.js";
 import { sleep } from "./modules/header.js";
 
+import { tilesSystem } from "./modules/tilesSystem.js";
+
 const ui: HTMLElement = document.getElementById("ui");
 const td: TimeDate = new TimeDate(ui);
 const bt: battery = new battery(ui);
@@ -16,8 +18,16 @@ declare var Promise: any;
   return Promise.resolve();
 })();
 
-console.log(bt.m_matrix.matrix[0].row[0]);
-bt.m_matrix.log();
-//bt.load = 10;
-bt.m_addTile(30);
-bt.m_matrix.log();
+var a = new tilesSystem(7, 5);
+
+a.m_matrix = [
+  [false, false, false, false, false],
+  [false, false, false, false, false],
+  [false, false, false, false, false],
+  [true, false, false, false, true],
+  [true, true, true, true, true],
+  [true, true, true, true, true],
+  [true, true, true, true, true],
+];
+
+console.log(a.addTile())
