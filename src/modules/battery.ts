@@ -71,14 +71,17 @@ class battery {
     return;
   }
 
-  private m_addTile(_y: number) {
+  public m_addTile(_y: number) {
     _y -= 2;
 
     var x: number;
     var buffer: boolean[][];
     var bool: Boolean = false;
 
-    while (!bool) {
+    for(var lllll = 0; lllll < 10; lllll++){
+
+    
+    //while (!bool) {
       x = getRandomInt(this.m_matrix.width);
       buffer = this.m_matrix.getBuffer(x, _y);
 

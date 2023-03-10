@@ -62,11 +62,11 @@ class matrix {
         buffer2D[1].push(true);
       }
     } else {
-      buffer2D[0].push(this.matrix[_y - 1].row[_x]);
+      buffer2D[0].push(this.matrix[_y + 1].row[_x]);
       buffer2D[1].push(this.matrix[_y].row[_x]);
 
       if (_x + 1 < this.m_width) {
-        buffer2D[0].push(this.matrix[_y - 1].row[_x + 1]);
+        buffer2D[0].push(this.matrix[_y + 1].row[_x + 1]);
         buffer2D[1].push(this.matrix[_y].row[_x + 1]);
       } else {
         buffer2D[0].push(true);

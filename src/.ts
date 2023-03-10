@@ -18,5 +18,6 @@ declare var Promise: any;
 
 console.log(bt.m_matrix.matrix[0].row[0]);
 bt.m_matrix.log();
-bt.load = 10;
+//bt.load = 10;
+bt.m_addTile(30);
 bt.m_matrix.log();
