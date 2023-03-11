@@ -1,4 +1,4 @@
-import { getRandomInt, indexOfFalse } from "./header.js";
+import { getRandomInt, indexOfFalse, sleep } from "./header.js";
 import {
   itile,
   t_1x1,
@@ -47,12 +47,16 @@ class tilesSystem {
     this.m_length = _length;
 
     this.m_tiles = new Array<itile[]>(_height);
-    this.m_tiles.fill(new Array<itile>(0));
+    for (var i = 0; i < this.m_tiles.length; i++) {
+      this.m_tiles[i] = new Array<itile>(0);
+    }
 
-    var buffer = new Array<boolean>(_length);
-    buffer.fill(false);
     this.m_matrix = new Array<boolean[]>(_height);
-    this.m_matrix.fill(buffer);
+    for (var i = 0; i < _height; i++) {
+      var buffer = new Array<false>(_length);
+      buffer.fill(false);
+      this.m_matrix[i] = buffer;
+    }
 
     return;
   }
@@ -70,15 +74,23 @@ class tilesSystem {
     if (tileIndexes.x.find((_value) => _value == x)) buffer2D[1][0] = false;
     tileIndexes.x = [x];
 
-    if (tileIndexes.y == 0 && tileIndexes.x[0] == this.m_length - 1) {
-    } else if (tileIndexes.y == 0) {
-      buffer2D[1][1] = this.m_matrix[tileIndexes.y][tileIndexes.x[0] + 1];
-    } else if (tileIndexes.x[0] == this.m_length - 1) {
-      buffer2D[0][0] = this.m_matrix[tileIndexes.y - 1][tileIndexes.x[0]];
-    } else {
+    if (tileIndexes.y != 0 && tileIndexes.x[0] != this.length - 1) {
+      buffer2D[1][0] = this.m_matrix[tileIndexes.y][tileIndexes.x[0]];
       buffer2D[1][1] = this.m_matrix[tileIndexes.y][tileIndexes.x[0] + 1];
       buffer2D[0][0] = this.m_matrix[tileIndexes.y - 1][tileIndexes.x[0]];
       buffer2D[0][1] = this.m_matrix[tileIndexes.y - 1][tileIndexes.x[0] + 1];
+    } else if (tileIndexes.y == 0) {
+      if (this.m_matrix[tileIndexes.y][tileIndexes.x[0]]) {
+        return false;
+      } else {
+        this.m_tiles[tileIndexes.y].push(
+          new t_1x1(this.m_matrix, tileIndexes.x[0], tileIndexes.y)
+        );
+        return true;
+      }
+    } else {
+      buffer2D[1][0] = this.m_matrix[tileIndexes.y][tileIndexes.x[0]];
+      buffer2D[0][0] = this.m_matrix[tileIndexes.y - 1][tileIndexes.x[0]];
     }
 
     //get the types of tile are spawnable
@@ -103,25 +115,21 @@ class tilesSystem {
             this.m_tiles[tileIndexes.y].push(
               new t_1x1(this.m_matrix, tileIndexes.x[0], tileIndexes.y)
             );
-
             break;
           case 1:
             this.m_tiles[tileIndexes.y].push(
               new t_1x2(this.m_matrix, tileIndexes.x[0], tileIndexes.y)
             );
-
             break;
           case 2:
             this.m_tiles[tileIndexes.y].push(
               new t_2x2(this.m_matrix, tileIndexes.x[0], tileIndexes.y)
             );
-
             break;
           case 3:
             this.m_tiles[tileIndexes.y].push(
               new t_2x1(this.m_matrix, tileIndexes.x[0], tileIndexes.y)
             );
-
             break;
           case 4:
             this.m_tiles[tileIndexes.y].push(
@@ -175,9 +183,13 @@ class tilesSystem {
         break;
     }
 
-    console.log(this.m_matrix);
-    console.log(this.m_tiles);
     return true;
+  }
+
+  public draw(_ctx: CanvasRenderingContext2D) {
+    this.m_tiles.forEach((_row: itile[]) =>
+      _row.forEach((_element: itile) => _element.draw(_ctx))
+    );
   }
 }
 

@@ -18,4 +18,5 @@ declare var Promise: any;
   return Promise.resolve();
 })();
 
-bt.load = 10;
+bt.load = 10
+console.log(bt.m_ts)

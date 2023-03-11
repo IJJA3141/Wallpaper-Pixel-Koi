@@ -1,3 +1,5 @@
+import { dot } from "./header.js";
+
 class itile {
   private m_x: number;
   private m_y: number;
@@ -11,9 +13,7 @@ class itile {
     return this.m_y;
   }
 
-  public draw(_ctx: CanvasRenderingContext2D): boolean {
-    return;
-  }
+  public draw(_ctx: CanvasRenderingContext2D): void {}
 
   constructor(_matrix: boolean[][], _x: number, _y: number) {
     this.m_x = _x;
@@ -24,10 +24,13 @@ class itile {
 
 class t_1x1 extends itile {
   constructor(_matrix: boolean[][], _x: number, _y: number) {
-    console.log(_x, _y);
     super(_matrix, _x, _y);
     _matrix[_y][_x] = true;
     return;
+  }
+
+  public draw(_ctx: CanvasRenderingContext2D): void {
+    _ctx.fillRect(this.x * dot, this.y * dot, dot, dot);
   }
 }
 
@@ -37,6 +40,10 @@ class t_1x2 extends itile {
     _matrix[_y][_x] = true;
     _matrix[_y - 1][_x] = true;
     return;
+  }
+
+  public draw(_ctx: CanvasRenderingContext2D): void {
+    _ctx.fillRect(this.x * dot, (this.y - 1) * dot, dot, 2 * dot);
   }
 }
 
@@ -48,6 +55,12 @@ class t_2x2 extends itile {
     _matrix[_y - 1][_x] = true;
     _matrix[_y - 1][_x + 1] = true;
     return;
+  }
+
+  public draw(_ctx: CanvasRenderingContext2D): void {
+    _ctx.fillStyle = "red"
+    _ctx.fillRect(this.x * dot, (this.y - 1) * dot, 2 * dot, 2 * dot);
+    _ctx.fillStyle = "blue"
   }
 }
 

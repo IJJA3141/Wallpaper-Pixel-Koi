@@ -27,4 +27,6 @@ function indexOfFalse(_array: boolean[]): number[] {
   return buffer;
 }
 
-export { sleep, getRandomInt, createDOM, indexOfFalse };
+const dot = 20
+
+export { sleep, getRandomInt, createDOM, indexOfFalse, dot};
