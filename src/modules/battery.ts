@@ -12,14 +12,14 @@ class battery {
   private m_canvas: HTMLCanvasElement;
   private m_ctx: CanvasRenderingContext2D;
 
+  public drawCount: number;
+
   set load(_load: number) {
     _load = 100 - _load;
     _load = (_load * this.m_ts.height) / 100;
     while (this.m_ts.load.y + this.m_ts.load.x.length * 0.1 > _load) {
       this.m_ts.addTile();
     }
-
-    this.m_ts.draw(this.m_ctx);
   } //load in %
 
   constructor(_parent: HTMLElement) {
@@ -46,7 +46,13 @@ class battery {
     _parent.appendChild(this.m_battery);
 
     this.m_ts = new tilesSystem(height, width);
+    this.drawCount = 0;
 
+    return;
+  }
+
+  public draw(): void {
+    this.m_ts.draw(this.m_ctx);
     return;
   }
 }

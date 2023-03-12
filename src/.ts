@@ -9,14 +9,6 @@ const ui: HTMLElement = document.getElementById("ui");
 const td: TimeDate = new TimeDate(ui);
 const bt: battery = new battery(ui);
 
-declare var Promise: any;
-(async () => {
-  for (var i = 0; i < 101; i++) {
-    //bt.generateBattery(i);
-    await sleep(200);
-  }
-  return Promise.resolve();
-})();
+bt.load = getBattery()
 
-bt.load = 10
 console.log(bt.m_ts)
