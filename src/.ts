@@ -7,7 +7,10 @@ const ui: HTMLElement = document.getElementById("ui");
 const td: TimeDate = new TimeDate(ui);
 const bt: battery = new battery(ui);
 
-bt.load = 100;
-bt.draw();
+(async () => {
+  bt.load = 100;
+  await sleep(20000);
+  bt.load = 10;
+})();
 
 console.log(bt.m_ts);

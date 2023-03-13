@@ -192,6 +192,10 @@ class tilesSystem {
       _row.forEach((_element: itile) => _element.draw(_ctx))
     );
   }
+
+  public delete(_y: number): void {
+    delete this.m_tiles[_y][getRandomInt(this.m_length)];
+  }
 }
 
 export { tilesSystem };
