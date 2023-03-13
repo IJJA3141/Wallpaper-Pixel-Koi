@@ -1,5 +1,4 @@
-import { getRandomInt } from "./header.js";
-import { createDOM, dot, sleep } from "./header.js";
+import { createDOM, dot, sleep, getRandomInt } from "./header.js";
 import { tilesSystem } from "./tilesSystem.js";
 
 class battery {
@@ -17,14 +16,12 @@ class battery {
   set load(_load: number) {
     _load = 100 - _load;
     _load = (_load * this.m_ts.height) / 100;
-    while (this.m_ts.load.y + this.m_ts.load.x.length * 0.1 > _load) {
-      this.m_ts.addTile();
-    }
+    this.m_upDateLoad(_load);
   } //load in %
 
   constructor(_parent: HTMLElement) {
     var width: number = 10;
-    var height: number = 30;
+    var height: number = 40;
 
     this.m_battery = <HTMLDivElement>createDOM("div", "battery");
 
@@ -54,6 +51,14 @@ class battery {
   public draw(): void {
     this.m_ts.draw(this.m_ctx);
     return;
+  }
+
+  private async m_upDateLoad(_load: number): Promise<void> {
+    while (this.m_ts.load.y + this.m_ts.load.x.length * 0.1 > _load) {
+      await sleep(100);
+      this.m_ts.addTile(this.m_ts.load.y);
+      this.m_ts.draw(this.m_ctx);
+    }
   }
 }
 

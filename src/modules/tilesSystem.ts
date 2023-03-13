@@ -1,4 +1,4 @@
-import { getRandomInt, indexOfFalse, sleep } from "./header.js";
+import { dot, getRandomInt, indexOfFalse, sleep } from "./header.js";
 import {
   itile,
   t_1x1,
@@ -61,7 +61,7 @@ class tilesSystem {
     return;
   }
 
-  public addTile(): boolean {
+  public addTile(_offset: number = 0): boolean {
     // get x and y indexs for the new tile
     var tileIndexes: tileIndex = this.load; // can't bee = to 0
     var x = getRandomInt(this.m_length);
@@ -84,7 +84,7 @@ class tilesSystem {
         return false;
       } else {
         this.m_tiles[tileIndexes.y].push(
-          new t_1x1(this.m_matrix, tileIndexes.x[0], tileIndexes.y)
+          new t_1x1(this.m_matrix, tileIndexes.x[0], tileIndexes.y, _offset)
         );
         return true;
       }
@@ -113,32 +113,32 @@ class tilesSystem {
         switch (getRandomInt(6)) {
           case 0:
             this.m_tiles[tileIndexes.y].push(
-              new t_1x1(this.m_matrix, tileIndexes.x[0], tileIndexes.y)
+              new t_1x1(this.m_matrix, tileIndexes.x[0], tileIndexes.y, _offset)
             );
             break;
           case 1:
             this.m_tiles[tileIndexes.y].push(
-              new t_1x2(this.m_matrix, tileIndexes.x[0], tileIndexes.y)
+              new t_1x2(this.m_matrix, tileIndexes.x[0], tileIndexes.y, _offset)
             );
             break;
           case 2:
             this.m_tiles[tileIndexes.y].push(
-              new t_2x2(this.m_matrix, tileIndexes.x[0], tileIndexes.y)
+              new t_2x2(this.m_matrix, tileIndexes.x[0], tileIndexes.y, _offset)
             );
             break;
           case 3:
             this.m_tiles[tileIndexes.y].push(
-              new t_2x1(this.m_matrix, tileIndexes.x[0], tileIndexes.y)
+              new t_2x1(this.m_matrix, tileIndexes.x[0], tileIndexes.y, _offset)
             );
             break;
           case 4:
             this.m_tiles[tileIndexes.y].push(
-              new t_tr(this.m_matrix, tileIndexes.x[0], tileIndexes.y)
+              new t_tr(this.m_matrix, tileIndexes.x[0], tileIndexes.y, _offset)
             );
             break;
           case 5:
             this.m_tiles[tileIndexes.y].push(
-              new t_tl(this.m_matrix, tileIndexes.x[0], tileIndexes.y)
+              new t_tl(this.m_matrix, tileIndexes.x[0], tileIndexes.y, _offset)
             );
             break;
         }
@@ -147,12 +147,12 @@ class tilesSystem {
         switch (getRandomInt(2)) {
           case 0:
             this.m_tiles[tileIndexes.y].push(
-              new t_1x1(this.m_matrix, tileIndexes.x[0], tileIndexes.y)
+              new t_1x1(this.m_matrix, tileIndexes.x[0], tileIndexes.y, _offset)
             );
             break;
           case 1:
             this.m_tiles[tileIndexes.y].push(
-              new t_1x2(this.m_matrix, tileIndexes.x[0], tileIndexes.y)
+              new t_1x2(this.m_matrix, tileIndexes.x[0], tileIndexes.y, _offset)
             );
             break;
         }
@@ -161,24 +161,24 @@ class tilesSystem {
         switch (getRandomInt(3)) {
           case 0:
             this.m_tiles[tileIndexes.y].push(
-              new t_1x1(this.m_matrix, tileIndexes.x[0], tileIndexes.y)
+              new t_1x1(this.m_matrix, tileIndexes.x[0], tileIndexes.y, _offset)
             );
             break;
           case 1:
             this.m_tiles[tileIndexes.y].push(
-              new t_1x2(this.m_matrix, tileIndexes.x[0], tileIndexes.y)
+              new t_1x2(this.m_matrix, tileIndexes.x[0], tileIndexes.y, _offset)
             );
             break;
           case 2:
             this.m_tiles[tileIndexes.y].push(
-              new t_dr(this.m_matrix, tileIndexes.x[0], tileIndexes.y)
+              new t_dr(this.m_matrix, tileIndexes.x[0], tileIndexes.y, _offset)
             );
             break;
         }
         break;
       case 3:
         this.m_tiles[tileIndexes.y].push(
-          new t_dl(this.m_matrix, tileIndexes.x[0], tileIndexes.y)
+          new t_dl(this.m_matrix, tileIndexes.x[0], tileIndexes.y, _offset)
         );
         break;
     }
@@ -187,6 +187,7 @@ class tilesSystem {
   }
 
   public draw(_ctx: CanvasRenderingContext2D) {
+    _ctx.clearRect(0, 0, this.m_length * dot, this.m_height * dot);
     this.m_tiles.forEach((_row: itile[]) =>
       _row.forEach((_element: itile) => _element.draw(_ctx))
     );
