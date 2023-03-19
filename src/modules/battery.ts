@@ -16,7 +16,13 @@ class battery {
   set load(_load: number) {
     _load = 100 - _load;
     _load = (_load * this.m_ts.height) / 100;
-    this.m_upDateLoad(_load);
+    while (_load > this.m_ts.load.y) {
+      this.m_ts.delete();
+    }
+    while (_load <= this.m_ts.load.y) {
+      this.m_ts.addTile(this.m_ts.load.y);
+    }
+    this.draw();
   } //load in %
 
   constructor(_parent: HTMLElement) {
@@ -51,14 +57,6 @@ class battery {
   public draw(): void {
     this.m_ts.draw(this.m_ctx);
     return;
-  }
-
-  private async m_upDateLoad(_load: number): Promise<void> {
-    while (this.m_ts.load.y + this.m_ts.load.x.length * 0.1 > _load) {
-      await sleep(100);
-      this.m_ts.addTile(this.m_ts.load.y);
-      this.m_ts.draw(this.m_ctx);
-    }
   }
 }
 

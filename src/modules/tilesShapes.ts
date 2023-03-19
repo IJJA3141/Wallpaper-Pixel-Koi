@@ -1,9 +1,11 @@
 import { dot } from "./header.js";
+import { tilesSystem } from "./tilesSystem.js";
 
 class itile {
   protected m_x: number;
   protected m_y: number;
   protected m_offset: number;
+  protected m_parent: tilesSystem;
 
   public color: string;
 
@@ -25,7 +27,10 @@ class itile {
 
   public draw(_ctx: CanvasRenderingContext2D): void {}
 
-  constructor(_matrix: boolean[][], _x: number, _y: number, _offset: number) {
+  public delete(): void {}
+
+  constructor(_parent: tilesSystem, _x: number, _y: number, _offset: number) {
+    this.m_parent = _parent;
     this.m_x = _x;
     this.m_y = _y;
     this.m_offset = _offset;
@@ -35,13 +40,13 @@ class itile {
 
 class t_1x1 extends itile {
   constructor(
-    _matrix: boolean[][],
+    _parent: tilesSystem,
     _x: number,
     _y: number,
     _offset: number = 0
   ) {
-    super(_matrix, _x, _y, _offset);
-    _matrix[_y][_x] = true;
+    super(_parent, _x, _y, _offset);
+    _parent.m_matrix[_y][_x] = true;
     return;
   }
 
@@ -50,18 +55,22 @@ class t_1x1 extends itile {
     _ctx.fillRect(this.m_x * dot, (this.m_y - this.m_offset) * dot, dot, dot);
     if (this.m_offset > 0) this.m_offset--;
   }
+
+  public delete(): void {
+    this.m_parent.m_matrix[this.m_y][this.m_x] = false;
+  }
 }
 
 class t_1x2 extends itile {
   constructor(
-    _matrix: boolean[][],
+    _parent: tilesSystem,
     _x: number,
     _y: number,
     _offset: number = 0
   ) {
-    super(_matrix, _x, _y, _offset);
-    _matrix[_y][_x] = true;
-    _matrix[_y - 1][_x] = true;
+    super(_parent, _x, _y, _offset);
+    _parent.m_matrix[_y][_x] = true;
+    _parent.m_matrix[_y - 1][_x] = true;
     return;
   }
 
@@ -75,20 +84,25 @@ class t_1x2 extends itile {
     );
     if (this.m_offset > 0) this.m_offset--;
   }
+
+  public delete(): void {
+    this.m_parent.m_matrix[this.m_y][this.m_x] = false;
+    this.m_parent.m_matrix[this.m_y - 1][this.m_x] = false;
+  }
 }
 
 class t_2x2 extends itile {
   constructor(
-    _matrix: boolean[][],
+    _parent: tilesSystem,
     _x: number,
     _y: number,
     _offset: number = 0
   ) {
-    super(_matrix, _x, _y, _offset);
-    _matrix[_y][_x] = true;
-    _matrix[_y][_x + 1] = true;
-    _matrix[_y - 1][_x] = true;
-    _matrix[_y - 1][_x + 1] = true;
+    super(_parent, _x, _y, _offset);
+    _parent.m_matrix[_y][_x] = true;
+    _parent.m_matrix[_y][_x + 1] = true;
+    _parent.m_matrix[_y - 1][_x] = true;
+    _parent.m_matrix[_y - 1][_x + 1] = true;
     return;
   }
 
@@ -102,18 +116,25 @@ class t_2x2 extends itile {
     );
     if (this.m_offset > 0) this.m_offset--;
   }
+
+  public delete(): void {
+    this.m_parent.m_matrix[this.m_y][this.m_x] = false;
+    this.m_parent.m_matrix[this.m_y - 1][this.m_x] = false;
+    this.m_parent.m_matrix[this.m_y][this.m_x + 1] = false;
+    this.m_parent.m_matrix[this.m_y - 1][this.m_x + 1] = false;
+  }
 }
 
 class t_2x1 extends itile {
   constructor(
-    _matrix: boolean[][],
+    _parent: tilesSystem,
     _x: number,
     _y: number,
     _offset: number = 0
   ) {
-    super(_matrix, _x, _y, _offset);
-    _matrix[_y][_x] = true;
-    _matrix[_y][_x + 1] = true;
+    super(_parent, _x, _y, _offset);
+    _parent.m_matrix[_y][_x] = true;
+    _parent.m_matrix[_y][_x + 1] = true;
     return;
   }
 
@@ -127,19 +148,24 @@ class t_2x1 extends itile {
     );
     if (this.m_offset > 0) this.m_offset--;
   }
+
+  public delete(): void {
+    this.m_parent.m_matrix[this.m_y][this.m_x] = false;
+    this.m_parent.m_matrix[this.m_y][this.m_x + 1] = false;
+  }
 }
 
 class t_tl extends itile {
   constructor(
-    _matrix: boolean[][],
+    _parent: tilesSystem,
     _x: number,
     _y: number,
     _offset: number = 0
   ) {
-    super(_matrix, _x, _y, _offset);
-    _matrix[_y][_x] = true;
-    _matrix[_y][_x + 1] = true;
-    _matrix[_y - 1][_x + 1] = true;
+    super(_parent, _x, _y, _offset);
+    _parent.m_matrix[_y][_x] = true;
+    _parent.m_matrix[_y][_x + 1] = true;
+    _parent.m_matrix[_y - 1][_x + 1] = true;
     return;
   }
 
@@ -159,19 +185,25 @@ class t_tl extends itile {
     );
     if (this.m_offset > 0) this.m_offset--;
   }
+
+  public delete(): void {
+    this.m_parent.m_matrix[this.m_y][this.m_x] = false;
+    this.m_parent.m_matrix[this.m_y][this.m_x + 1] = false;
+    this.m_parent.m_matrix[this.m_y - 1][this.m_x + 1] = false;
+  }
 }
 
 class t_tr extends itile {
   constructor(
-    _matrix: boolean[][],
+    _parent: tilesSystem,
     _x: number,
     _y: number,
     _offset: number = 0
   ) {
-    super(_matrix, _x, _y, _offset);
-    _matrix[_y][_x] = true;
-    _matrix[_y][_x + 1] = true;
-    _matrix[_y - 1][_x] = true;
+    super(_parent, _x, _y, _offset);
+    _parent.m_matrix[_y][_x] = true;
+    _parent.m_matrix[_y][_x + 1] = true;
+    _parent.m_matrix[_y - 1][_x] = true;
     return;
   }
 
@@ -191,19 +223,25 @@ class t_tr extends itile {
     );
     if (this.m_offset > 0) this.m_offset--;
   }
+
+  public delete(): void {
+    this.m_parent.m_matrix[this.m_y][this.m_x] = false;
+    this.m_parent.m_matrix[this.m_y - 1][this.m_x] = false;
+    this.m_parent.m_matrix[this.m_y][this.m_x + 1] = false;
+  }
 }
 
 class t_dl extends itile {
   constructor(
-    _matrix: boolean[][],
+    _parent: tilesSystem,
     _x: number,
     _y: number,
     _offset: number = 0
   ) {
-    super(_matrix, _x, _y, _offset);
-    _matrix[_y][_x + 1] = true;
-    _matrix[_y - 1][_x] = true;
-    _matrix[_y - 1][_x + 1] = true;
+    super(_parent, _x, _y, _offset);
+    _parent.m_matrix[_y][_x + 1] = true;
+    _parent.m_matrix[_y - 1][_x] = true;
+    _parent.m_matrix[_y - 1][_x + 1] = true;
     return;
   }
 
@@ -223,19 +261,25 @@ class t_dl extends itile {
     );
     if (this.m_offset > 0) this.m_offset--;
   }
+
+  public delete(): void {
+    this.m_parent.m_matrix[this.m_y - 1][this.m_x] = false;
+    this.m_parent.m_matrix[this.m_y][this.m_x + 1] = false;
+    this.m_parent.m_matrix[this.m_y - 1][this.m_x + 1] = false;
+  }
 }
 
 class t_dr extends itile {
   constructor(
-    _matrix: boolean[][],
+    _parent: tilesSystem,
     _x: number,
     _y: number,
     _offset: number = 0
   ) {
-    super(_matrix, _x, _y, _offset);
-    _matrix[_y][_x] = true;
-    _matrix[_y - 1][_x] = true;
-    _matrix[_y - 1][_x + 1] = true;
+    super(_parent, _x, _y, _offset);
+    _parent.m_matrix[_y][_x] = true;
+    _parent.m_matrix[_y - 1][_x] = true;
+    _parent.m_matrix[_y - 1][_x + 1] = true;
     return;
   }
 
@@ -249,6 +293,12 @@ class t_dr extends itile {
     );
     _ctx.fillRect(this.m_x * dot, (this.m_y - this.m_offset) * dot, dot, dot);
     if (this.m_offset > 0) this.m_offset--;
+  }
+
+  public delete(): void {
+    this.m_parent.m_matrix[this.m_y][this.m_x] = false;
+    this.m_parent.m_matrix[this.m_y - 1][this.m_x] = false;
+    this.m_parent.m_matrix[this.m_y - 1][this.m_x + 1] = false;
   }
 }
 

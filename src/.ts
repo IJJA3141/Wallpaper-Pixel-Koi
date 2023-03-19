@@ -8,9 +8,14 @@ const td: TimeDate = new TimeDate(ui);
 const bt: battery = new battery(ui);
 
 (async () => {
-  bt.load = 100;
-  await sleep(20000);
-  bt.load = 10;
+  //for (var j = 0; i < 10; j++) {
+    for (var i = 1; i < 101; i++) {
+      bt.load = i;
+      await sleep(5000);
+    }
+    console.log("1")
+    bt.load = 0;
+  //}
 })();
 
 console.log(bt.m_ts);
