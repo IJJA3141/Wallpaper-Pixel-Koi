@@ -1,9 +1,9 @@
-import { createDOM, dot, sleep, getRandomInt } from "./header.js";
-import { tilesSystem } from "./tilesSystem.js";
+import { createDOM, dot, sleep, getRandomInt } from "../header.js";
+import { tilesSystem } from "./tiles/tilesSystem.js";
 
 class battery {
   public m_ts: tilesSystem;
-
+   
   private m_battery: HTMLDivElement;
   private m_left: HTMLDivElement;
   private m_right: HTMLDivElement;
@@ -11,15 +11,25 @@ class battery {
   private m_canvas: HTMLCanvasElement;
   private m_ctx: CanvasRenderingContext2D;
 
+  private m_loadText: HTMLParagraphElement
+  private m_stateText: HTMLParagraphElement
+
   public drawCount: number;
 
+  set state(_state:string){
+    this.m_stateText.innerText = _state
+    return
+  }
+
   set load(_load: number) {
+    this.m_loadText.innerText = `load: ${_load}`
+
     _load = 100 - _load;
     _load = (_load * this.m_ts.height) / 100;
     while (_load > this.m_ts.load.y) {
       this.m_ts.delete();
     }
-    while (_load <= this.m_ts.load.y) {
+    while (_load < this.m_ts.load.y) {
       this.m_ts.addTile(this.m_ts.load.y);
     }
     this.draw();
@@ -29,13 +39,16 @@ class battery {
     var width: number = 10;
     var height: number = 40;
 
-    this.m_battery = <HTMLDivElement>createDOM("div", "battery");
+    this.m_battery = <HTMLDivElement>createDOM("div", "battery","uiBackground");
 
     this.m_left = <HTMLDivElement>createDOM("div", "batteryLeft");
     this.m_right = <HTMLDivElement>createDOM("div", "batteryRight");
 
     this.m_canvas = <HTMLCanvasElement>createDOM("canvas", "batteryCanvas");
-    this;
+    this.m_loadText = <HTMLParagraphElement>createDOM("p","batteryLoadText");
+    this.m_stateText = <HTMLParagraphElement>createDOM("p","batteryChargeText");
+
+    this.m_right.appendChild(this.m_loadText)
 
     this.m_left.appendChild(this.m_canvas);
     this.m_battery.appendChild(this.m_left);

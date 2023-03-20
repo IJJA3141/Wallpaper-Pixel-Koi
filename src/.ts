@@ -1,6 +1,6 @@
 import { TimeDate } from "./modules/time&date.js";
 import { getBattery } from "./modules/fix.js";
-import { battery } from "./modules/battery.js";
+import { battery } from "./modules/battery/battery.js";
 import { sleep } from "./modules/header.js";
 
 const ui: HTMLElement = document.getElementById("ui");
@@ -8,14 +8,14 @@ const td: TimeDate = new TimeDate(ui);
 const bt: battery = new battery(ui);
 
 (async () => {
-  //for (var j = 0; i < 10; j++) {
-    for (var i = 1; i < 101; i++) {
-      bt.load = i;
-      await sleep(5000);
-    }
-    console.log("1")
-    bt.load = 0;
-  //}
+  /*var i = 0;
+  while (i < 100) {
+    bt.load = i;
+    i++;
+    await sleep(2000);
+  }*/
+  bt.load = 100;
+  bt.state = `${2}m : ${20}s`
 })();
 
 console.log(bt.m_ts);

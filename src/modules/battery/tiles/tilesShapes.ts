@@ -1,4 +1,4 @@
-import { dot } from "./header.js";
+import { dot } from "../../header.js";
 import { tilesSystem } from "./tilesSystem.js";
 
 class itile {

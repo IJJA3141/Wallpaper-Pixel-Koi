@@ -1,4 +1,4 @@
-import { dot, getRandomInt, indexOfFalse, sleep } from "./header.js";
+import { dot, getRandomInt, indexOfFalse, sleep } from "../../header.js";
 import {
   itile,
   t_1x1,
