@@ -46,7 +46,7 @@ class t_1x1 extends itile {
     _offset: number = 0
   ) {
     super(_parent, _x, _y, _offset);
-    _parent.m_matrix[_y][_x] = true;
+    _parent.matrix[_y][_x] = true;
     return;
   }
 
@@ -57,7 +57,7 @@ class t_1x1 extends itile {
   }
 
   public delete(): void {
-    this.m_parent.m_matrix[this.m_y][this.m_x] = false;
+    this.m_parent.matrix[this.m_y][this.m_x] = false;
   }
 }
 
@@ -69,8 +69,8 @@ class t_1x2 extends itile {
     _offset: number = 0
   ) {
     super(_parent, _x, _y, _offset);
-    _parent.m_matrix[_y][_x] = true;
-    _parent.m_matrix[_y - 1][_x] = true;
+    _parent.matrix[_y][_x] = true;
+    _parent.matrix[_y - 1][_x] = true;
     return;
   }
 
@@ -86,8 +86,8 @@ class t_1x2 extends itile {
   }
 
   public delete(): void {
-    this.m_parent.m_matrix[this.m_y][this.m_x] = false;
-    this.m_parent.m_matrix[this.m_y - 1][this.m_x] = false;
+    this.m_parent.matrix[this.m_y][this.m_x] = false;
+    this.m_parent.matrix[this.m_y - 1][this.m_x] = false;
   }
 }
 
@@ -99,10 +99,10 @@ class t_2x2 extends itile {
     _offset: number = 0
   ) {
     super(_parent, _x, _y, _offset);
-    _parent.m_matrix[_y][_x] = true;
-    _parent.m_matrix[_y][_x + 1] = true;
-    _parent.m_matrix[_y - 1][_x] = true;
-    _parent.m_matrix[_y - 1][_x + 1] = true;
+    _parent.matrix[_y][_x] = true;
+    _parent.matrix[_y][_x + 1] = true;
+    _parent.matrix[_y - 1][_x] = true;
+    _parent.matrix[_y - 1][_x + 1] = true;
     return;
   }
 
@@ -118,10 +118,10 @@ class t_2x2 extends itile {
   }
 
   public delete(): void {
-    this.m_parent.m_matrix[this.m_y][this.m_x] = false;
-    this.m_parent.m_matrix[this.m_y - 1][this.m_x] = false;
-    this.m_parent.m_matrix[this.m_y][this.m_x + 1] = false;
-    this.m_parent.m_matrix[this.m_y - 1][this.m_x + 1] = false;
+    this.m_parent.matrix[this.m_y][this.m_x] = false;
+    this.m_parent.matrix[this.m_y - 1][this.m_x] = false;
+    this.m_parent.matrix[this.m_y][this.m_x + 1] = false;
+    this.m_parent.matrix[this.m_y - 1][this.m_x + 1] = false;
   }
 }
 
@@ -133,8 +133,8 @@ class t_2x1 extends itile {
     _offset: number = 0
   ) {
     super(_parent, _x, _y, _offset);
-    _parent.m_matrix[_y][_x] = true;
-    _parent.m_matrix[_y][_x + 1] = true;
+    _parent.matrix[_y][_x] = true;
+    _parent.matrix[_y][_x + 1] = true;
     return;
   }
 
@@ -150,8 +150,8 @@ class t_2x1 extends itile {
   }
 
   public delete(): void {
-    this.m_parent.m_matrix[this.m_y][this.m_x] = false;
-    this.m_parent.m_matrix[this.m_y][this.m_x + 1] = false;
+    this.m_parent.matrix[this.m_y][this.m_x] = false;
+    this.m_parent.matrix[this.m_y][this.m_x + 1] = false;
   }
 }
 
@@ -163,9 +163,9 @@ class t_tl extends itile {
     _offset: number = 0
   ) {
     super(_parent, _x, _y, _offset);
-    _parent.m_matrix[_y][_x] = true;
-    _parent.m_matrix[_y][_x + 1] = true;
-    _parent.m_matrix[_y - 1][_x + 1] = true;
+    _parent.matrix[_y][_x] = true;
+    _parent.matrix[_y][_x + 1] = true;
+    _parent.matrix[_y - 1][_x + 1] = true;
     return;
   }
 
@@ -187,9 +187,9 @@ class t_tl extends itile {
   }
 
   public delete(): void {
-    this.m_parent.m_matrix[this.m_y][this.m_x] = false;
-    this.m_parent.m_matrix[this.m_y][this.m_x + 1] = false;
-    this.m_parent.m_matrix[this.m_y - 1][this.m_x + 1] = false;
+    this.m_parent.matrix[this.m_y][this.m_x] = false;
+    this.m_parent.matrix[this.m_y][this.m_x + 1] = false;
+    this.m_parent.matrix[this.m_y - 1][this.m_x + 1] = false;
   }
 }
 
@@ -201,9 +201,9 @@ class t_tr extends itile {
     _offset: number = 0
   ) {
     super(_parent, _x, _y, _offset);
-    _parent.m_matrix[_y][_x] = true;
-    _parent.m_matrix[_y][_x + 1] = true;
-    _parent.m_matrix[_y - 1][_x] = true;
+    _parent.matrix[_y][_x] = true;
+    _parent.matrix[_y][_x + 1] = true;
+    _parent.matrix[_y - 1][_x] = true;
     return;
   }
 
@@ -225,9 +225,9 @@ class t_tr extends itile {
   }
 
   public delete(): void {
-    this.m_parent.m_matrix[this.m_y][this.m_x] = false;
-    this.m_parent.m_matrix[this.m_y - 1][this.m_x] = false;
-    this.m_parent.m_matrix[this.m_y][this.m_x + 1] = false;
+    this.m_parent.matrix[this.m_y][this.m_x] = false;
+    this.m_parent.matrix[this.m_y - 1][this.m_x] = false;
+    this.m_parent.matrix[this.m_y][this.m_x + 1] = false;
   }
 }
 
@@ -239,9 +239,9 @@ class t_dl extends itile {
     _offset: number = 0
   ) {
     super(_parent, _x, _y, _offset);
-    _parent.m_matrix[_y][_x + 1] = true;
-    _parent.m_matrix[_y - 1][_x] = true;
-    _parent.m_matrix[_y - 1][_x + 1] = true;
+    _parent.matrix[_y][_x + 1] = true;
+    _parent.matrix[_y - 1][_x] = true;
+    _parent.matrix[_y - 1][_x + 1] = true;
     return;
   }
 
@@ -263,9 +263,9 @@ class t_dl extends itile {
   }
 
   public delete(): void {
-    this.m_parent.m_matrix[this.m_y - 1][this.m_x] = false;
-    this.m_parent.m_matrix[this.m_y][this.m_x + 1] = false;
-    this.m_parent.m_matrix[this.m_y - 1][this.m_x + 1] = false;
+    this.m_parent.matrix[this.m_y - 1][this.m_x] = false;
+    this.m_parent.matrix[this.m_y][this.m_x + 1] = false;
+    this.m_parent.matrix[this.m_y - 1][this.m_x + 1] = false;
   }
 }
 
@@ -277,9 +277,9 @@ class t_dr extends itile {
     _offset: number = 0
   ) {
     super(_parent, _x, _y, _offset);
-    _parent.m_matrix[_y][_x] = true;
-    _parent.m_matrix[_y - 1][_x] = true;
-    _parent.m_matrix[_y - 1][_x + 1] = true;
+    _parent.matrix[_y][_x] = true;
+    _parent.matrix[_y - 1][_x] = true;
+    _parent.matrix[_y - 1][_x + 1] = true;
     return;
   }
 
@@ -296,9 +296,9 @@ class t_dr extends itile {
   }
 
   public delete(): void {
-    this.m_parent.m_matrix[this.m_y][this.m_x] = false;
-    this.m_parent.m_matrix[this.m_y - 1][this.m_x] = false;
-    this.m_parent.m_matrix[this.m_y - 1][this.m_x + 1] = false;
+    this.m_parent.matrix[this.m_y][this.m_x] = false;
+    this.m_parent.matrix[this.m_y - 1][this.m_x] = false;
+    this.m_parent.matrix[this.m_y - 1][this.m_x + 1] = false;
   }
 }
 
