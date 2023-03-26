@@ -23,6 +23,7 @@ class tilesSystem {
   private m_height: number;
   private m_length: number;
   private m_drawCount: number;
+  private m_ctx: CanvasRenderingContext2D;
 
   get height(): number {
     return this.m_height;
@@ -49,11 +50,13 @@ class tilesSystem {
 
   constructor(
     _height: number /* Start at one. */,
-    _length: number /* Also start at one. */
+    _length: number /* Also start at one. */,
+    _canvasCtx: CanvasRenderingContext2D
   ) {
     /* Initialise privat variables. */
     this.m_height = _height;
     this.m_length = _length;
+    this.m_ctx = _canvasCtx;
     this.m_drawCount = 0;
 
     /* Create and fill both arrays. */
@@ -250,18 +253,22 @@ class tilesSystem {
     this.itiles[load].splice(index, 1);
   }
 
-  public async draw(_ctx: CanvasRenderingContext2D): Promise<void> {
+  public async draw(): Promise<void> {
     this.m_drawCount++;
-    _ctx.clearRect(0, 0, this.m_length * dot, this.m_height * dot);
-    while (this.drawCount > 0) {
-      this.itiles.forEach((_row: itile[]) =>
-        _row.forEach((_element: itile) => _element.draw(_ctx))
-      );
+
+    while (this.m_drawCount > 0) {
+      this.m_ctx.clearRect(0, 0, this.m_length * dot, this.m_height * dot);
+
+      this.itiles.forEach((_row: itile[]) => {
+        _row.forEach((_element: itile) => {
+          console.log(_element)
+          _element.draw(this.m_ctx);
+        });
+      });
       this.m_drawCount--;
 
-      await sleep(200); // <= draw time need to change /!\
+      await sleep(100); // <= draw time need to change /!\
     }
-
     return;
   }
 }
