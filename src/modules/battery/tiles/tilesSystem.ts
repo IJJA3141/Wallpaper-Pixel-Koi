@@ -42,7 +42,7 @@ class tilesSystem {
     }
 
     return { x: indexOfFalse(this.matrix[i]), y: i };
-  } // Represent the index starting from the top left corner.
+  } // Represent the index starting from the top.
 
   set drawCount(_count: number) {
     if (_count > this.m_drawCount) this.m_drawCount = _count;
@@ -75,17 +75,19 @@ class tilesSystem {
     return;
   }
 
-  public addTile(_offset: number = 0): boolean {
+  public addTile(
+    _offset: number = this.load.y + 2,
+    x: number = getRandomInt(this.m_length)
+  ): boolean {
     // Get x and y indexes for the new tile to bee created.
     var tileIndexes: tileIndex = this.load; // Can't bee equal to zero.
-    var x = getRandomInt(this.m_length);
 
     // Get a 2d array that represnet the two by two range around the tarfeted tile.
-
     // Get down left corner of the buffer2D.
     const buffer: boolean = ((): boolean => {
-      if (tileIndexes.x.find((_value) => _value == x)) return false;
-      return true;
+      if (tileIndexes.x.find((_value) => _value == x) == undefined)
+        return !false;
+      return !true;
     })();
 
     // To prevent out of band error, check the top and right row.
@@ -94,145 +96,176 @@ class tilesSystem {
       switch (
         ((_tileIndex: tileIndex): number => {
           // Check if the tile is at te top right corner.
-          if (_tileIndex.y != 0 && _tileIndex.x[0] != this.m_length - 1)
-            return 0;
+          if (_tileIndex.y != 0 && x != this.m_length - 1) return 0;
 
           // Check if the tile is at the top.
           if (_tileIndex.y != 0) return 1;
 
           // Check if the right row is on the side.
-          if (_tileIndex.x[0] != this.m_length - 1) return 2;
+          if (x != this.m_length - 1) return 2;
           return 3;
         })({ x: [x], y: tileIndexes.y })
       ) {
         case 0:
           return [
             [
-              this.matrix[tileIndexes.y - 1][tileIndexes.x[0]],
-              this.matrix[tileIndexes.y - 1][tileIndexes.x[0] + 1],
+              this.matrix[tileIndexes.y - 1][x],
+              this.matrix[tileIndexes.y - 1][x + 1],
             ],
-            [buffer, this.matrix[tileIndexes.y][tileIndexes.x[0] + 1]],
+            [buffer, this.matrix[tileIndexes.y][x + 1]],
           ];
         case 1:
           return [
-            [this.matrix[tileIndexes.y - 1][tileIndexes.x[0]], false],
-            [buffer, false],
-          ];
-        case 2:
-          return [
-            [true, true],
+            [this.matrix[tileIndexes.y - 1][x], true],
             [buffer, true],
           ];
         case 3:
           return [
             [true, true],
-            [buffer, this.matrix[tileIndexes.y][tileIndexes.x[0] + 1]],
+            [buffer, true],
+          ];
+        case 2:
+          return [
+            [true, true],
+            [buffer, this.matrix[tileIndexes.y][x + 1]],
           ];
         default:
+          console.log("?");
           return [[], []];
       }
     })();
 
     // Get the types of the tile that are spawnables.
     // See page 1 of the draw io file.
-    switch (
-      ((_buffer2D: boolean[][]): number => {
-        if (_buffer2D[1][0]) {
-          if (!_buffer2D[1][1] && !_buffer2D[0][0]) return 3;
-          else return -1;
-        } else {
-          if (!_buffer2D[1][1]) return 0;
-          else if (_buffer2D[0][1]) return 1;
-          else return 2;
-        }
-      })(buffer2D)
-    ) {
-      case -1:
-        return false;
-      case 0:
-        switch (getRandomInt(6)) {
-          case 0:
-            this.itiles[tileIndexes.y].push(
-              new t_1x1(this, tileIndexes.x[0], tileIndexes.y, _offset)
-            );
-            this.drawCount = _offset;
-            break;
-          case 1:
-            this.itiles[tileIndexes.y].push(
-              new t_1x2(this, tileIndexes.x[0], tileIndexes.y, _offset)
-            );
-            this.drawCount = _offset;
-            break;
-          case 2:
-            this.itiles[tileIndexes.y].push(
-              new t_2x2(this, tileIndexes.x[0], tileIndexes.y, _offset)
-            );
-            this.drawCount = _offset;
-            break;
-          case 3:
-            this.itiles[tileIndexes.y].push(
-              new t_2x1(this, tileIndexes.x[0], tileIndexes.y, _offset)
-            );
-            this.drawCount = _offset;
-            break;
-          case 4:
-            this.itiles[tileIndexes.y].push(
-              new t_tr(this, tileIndexes.x[0], tileIndexes.y, _offset)
-            );
-            this.drawCount = _offset;
-            break;
-          case 5:
-            this.itiles[tileIndexes.y].push(
-              new t_tl(this, tileIndexes.x[0], tileIndexes.y, _offset)
-            );
-            this.drawCount = _offset;
-            break;
-        }
-        break;
-      case 1:
+    if (tileIndexes.y == 0) {
+      if (!buffer2D[0][0]) return false;
+      console.log(1)
+      if (buffer2D[0][1]) {
+        this.itiles[tileIndexes.y].push(
+          new t_1x1(this, x, tileIndexes.y, _offset)
+        );
+        this.drawCount = _offset + 3;
+      } else {
         switch (getRandomInt(2)) {
           case 0:
             this.itiles[tileIndexes.y].push(
-              new t_1x1(this, tileIndexes.x[0], tileIndexes.y, _offset)
+              new t_1x1(this, x, tileIndexes.y, _offset)
             );
-            this.drawCount = _offset;
+            this.drawCount = _offset + 3;
             break;
           case 1:
             this.itiles[tileIndexes.y].push(
-              new t_1x2(this, tileIndexes.x[0], tileIndexes.y, _offset)
+              new t_1x2(this, x, tileIndexes.y, _offset)
             );
-            this.drawCount = _offset;
+            this.drawCount = _offset + 3;
             break;
         }
-        break;
-      case 2:
-        switch (getRandomInt(3)) {
-          case 0:
-            this.itiles[tileIndexes.y].push(
-              new t_1x1(this, tileIndexes.x[0], tileIndexes.y, _offset)
+      }
+    } else {
+      switch (
+        ((_buffer2D: boolean[][]): number => {
+          if (_buffer2D[1][0]) {
+            if (!_buffer2D[1][1] && !_buffer2D[0][0]) return 3;
+            else return -1;
+          } else {
+            if (!_buffer2D[1][1]) return 0;
+            else if (_buffer2D[0][1]) return 1;
+            else return 2;
+          }
+        })(buffer2D)
+      ) {
+        case -1:
+          if (buffer)
+            this.addTile(
+              _offset,
+              this.load.x[getRandomInt(this.load.x.length)]
             );
-            this.drawCount = _offset;
-            break;
-          case 1:
-            this.itiles[tileIndexes.y].push(
-              new t_1x2(this, tileIndexes.x[0], tileIndexes.y, _offset)
-            );
-            this.drawCount = _offset;
-            break;
-          case 2:
-            this.itiles[tileIndexes.y].push(
-              new t_dr(this, tileIndexes.x[0], tileIndexes.y, _offset)
-            );
-            this.drawCount = _offset;
-            break;
-        }
-        break;
-      case 3:
-        this.itiles[tileIndexes.y].push(
-          new t_dl(this, tileIndexes.x[0], tileIndexes.y, _offset)
-        );
-        this.drawCount = _offset;
-        break;
+          return false;
+        case 0:
+          switch (getRandomInt(6)) {
+            case 0:
+              this.itiles[tileIndexes.y].push(
+                new t_1x1(this, x, tileIndexes.y, _offset)
+              );
+              this.drawCount = _offset + 3;
+              break;
+            case 1:
+              this.itiles[tileIndexes.y].push(
+                new t_1x2(this, x, tileIndexes.y, _offset)
+              );
+              this.drawCount = _offset + 3;
+              break;
+            case 2:
+              this.itiles[tileIndexes.y].push(
+                new t_2x2(this, x, tileIndexes.y, _offset)
+              );
+              this.drawCount = _offset + 3;
+              break;
+            case 3:
+              this.itiles[tileIndexes.y].push(
+                new t_2x1(this, x, tileIndexes.y, _offset)
+              );
+              this.drawCount = _offset + 3;
+              break;
+            case 4:
+              this.itiles[tileIndexes.y].push(
+                new t_tr(this, x, tileIndexes.y, _offset)
+              );
+              this.drawCount = _offset + 3;
+              break;
+            case 5:
+              this.itiles[tileIndexes.y].push(
+                new t_tl(this, x, tileIndexes.y, _offset)
+              );
+              this.drawCount = _offset + 3;
+              break;
+          }
+          break;
+        case 1:
+          switch (getRandomInt(2)) {
+            case 0:
+              this.itiles[tileIndexes.y].push(
+                new t_1x1(this, x, tileIndexes.y, _offset)
+              );
+              this.drawCount = _offset + 3;
+              break;
+            case 1:
+              this.itiles[tileIndexes.y].push(
+                new t_1x2(this, x, tileIndexes.y, _offset)
+              );
+              this.drawCount = _offset + 3;
+              break;
+          }
+          break;
+        case 2:
+          switch (getRandomInt(3)) {
+            case 0:
+              this.itiles[tileIndexes.y].push(
+                new t_1x1(this, x, tileIndexes.y, _offset)
+              );
+              this.drawCount = _offset + 3;
+              break;
+            case 1:
+              this.itiles[tileIndexes.y].push(
+                new t_1x2(this, x, tileIndexes.y, _offset)
+              );
+              this.drawCount = _offset + 3;
+              break;
+            case 2:
+              this.itiles[tileIndexes.y].push(
+                new t_dr(this, x, tileIndexes.y, _offset)
+              );
+              this.drawCount = _offset + 3;
+              break;
+          }
+          break;
+        case 3:
+          this.itiles[tileIndexes.y].push(
+            new t_dl(this, x, tileIndexes.y, _offset)
+          );
+          this.drawCount = _offset + 3;
+          break;
+      }
     }
 
     return true;
@@ -261,13 +294,12 @@ class tilesSystem {
 
       this.itiles.forEach((_row: itile[]) => {
         _row.forEach((_element: itile) => {
-          console.log(_element)
           _element.draw(this.m_ctx);
         });
       });
       this.m_drawCount--;
 
-      await sleep(100); // <= draw time need to change /!\
+      await sleep(0); // <= draw time need to change /!\
     }
     return;
   }

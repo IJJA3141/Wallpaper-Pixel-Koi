@@ -27,6 +27,14 @@ function indexOfFalse(_array: boolean[]): number[] {
   return buffer;
 }
 
-const dot = 12
 
-export { sleep, getRandomInt, createDOM, indexOfFalse, dot};
+function getColor(_load:number){
+  
+}
+
+
+
+
+const dot = 12;
+
+export { sleep, getRandomInt, createDOM, indexOfFalse, dot };

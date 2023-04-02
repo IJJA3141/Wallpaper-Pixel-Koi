@@ -14,8 +14,8 @@ const bt: battery = new battery(ui);
     i++;
     await sleep(2000);
   }*/
-  bt.load = 10;
-  bt.state = `${2}m : ${20}s`
+  bt.load = 100;
+  bt.state = `${2}m : ${20}s`;
 })();
 
 console.log(bt.m_ts);

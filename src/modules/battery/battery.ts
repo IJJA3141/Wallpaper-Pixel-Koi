@@ -26,15 +26,23 @@ class battery {
     _load = 100 - _load;
     _load = (_load * this.m_ts.height) / 100;
 
-    while (_load > this.m_ts.load.y) {
-      this.m_ts.delete();
-    }
-    while (_load < this.m_ts.load.y) {
-      this.m_ts.addTile(this.m_ts.load.y);
-    }
+    console.log(
+      `${_load} : ${
+        this.m_ts.load.y + this.m_ts.load.x.length / this.m_ts.length
+      }`
+    );
 
-    this.draw();
-  } //load in %
+    (async () => {
+      while (
+        _load <
+        this.m_ts.load.y + this.m_ts.load.x.length / this.m_ts.length
+      ) {
+        this.m_ts.addTile();
+        this.draw();
+        await sleep(0);
+      }
+    })();
+  } //load in % from 0 to 100
 
   constructor(_parent: HTMLElement) {
     var width: number = 10;
