@@ -14,7 +14,12 @@ const bt: battery = new battery(ui);
     i++;
     await sleep(2000);
   }*/
-  bt.load = 100;
+  bt.load = 100;/*
+  for(var i = 51; i < 101; i++)
+  {
+    await sleep(2500)
+    bt.load = i
+  }*/
   bt.state = `${2}m : ${20}s`;
 })();
 

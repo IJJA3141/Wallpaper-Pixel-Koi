@@ -39,7 +39,7 @@ class battery {
       ) {
         this.m_ts.addTile();
         this.draw();
-        await sleep(0);
+        await sleep(500);
       }
     })();
   } //load in % from 0 to 100
