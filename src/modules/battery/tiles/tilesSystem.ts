@@ -138,29 +138,12 @@ class tilesSystem {
     // Get the types of the tile that are spawnables.
     // See page 1 of the draw io file.
     if (tileIndexes.y == 0) {
-      if (!buffer2D[0][0]) return false;
-      console.log(1)
-      if (buffer2D[0][1]) {
+      tileIndexes.x.forEach((_x) => {
         this.itiles[tileIndexes.y].push(
-          new t_1x1(this, x, tileIndexes.y, _offset)
+          new t_1x1(this, _x, tileIndexes.y, _offset)
         );
         this.drawCount = _offset + 3;
-      } else {
-        switch (getRandomInt(2)) {
-          case 0:
-            this.itiles[tileIndexes.y].push(
-              new t_1x1(this, x, tileIndexes.y, _offset)
-            );
-            this.drawCount = _offset + 3;
-            break;
-          case 1:
-            this.itiles[tileIndexes.y].push(
-              new t_1x2(this, x, tileIndexes.y, _offset)
-            );
-            this.drawCount = _offset + 3;
-            break;
-        }
-      }
+      });
     } else {
       switch (
         ((_buffer2D: boolean[][]): number => {
@@ -272,18 +255,28 @@ class tilesSystem {
   }
 
   public delete(): void {
-    var index: number;
-    var load: number = this.load.y;
+    var x: number;
+    var y: number = this.load.y;
 
-    if (this.itiles[load].length == 0) load++;
+    if (this.itiles[y].length == 0) y++;
 
-    index = getRandomInt(this.itiles[load].length);
+    this.itiles[y].forEach((value: itile, index: number): void => {
+      if (value.id == t_dr.id || value.id == t_dl.id) x = index;
+    });
 
-    console.log(`y:${this.load.y} x:${index} elem:${this.itiles[load][index]}`);
+    if (x === undefined) x = getRandomInt(this.itiles[y].length);
 
-    this.itiles[load][index].delete();
-    delete this.itiles[load][index];
-    this.itiles[load].splice(index, 1);
+    if (this.itiles[y][x] === undefined) {
+      console.log(this.itiles);
+      console.log(`x:${x} | y:${y}`);
+    }
+
+    this.itiles[y][x].delete();
+    delete this.itiles[y][x];
+    this.itiles[y].splice(x, 1);
+
+    this.draw();
+    return;
   }
 
   public async draw(): Promise<void> {

@@ -26,12 +26,6 @@ class battery {
     _load = 100 - _load;
     _load = (_load * this.m_ts.height) / 100;
 
-    console.log(
-      `${_load} : ${
-        this.m_ts.load.y + this.m_ts.load.x.length / this.m_ts.length
-      }`
-    );
-
     (async () => {
       while (
         _load <
@@ -39,9 +33,17 @@ class battery {
       ) {
         this.m_ts.addTile();
         this.draw();
-        await sleep(500);
+        await sleep(0);
       }
     })();
+
+    (async () => {
+      while (_load > this.m_ts.load.y) {
+        this.m_ts.delete();
+      }
+    })();
+
+    return
   } //load in % from 0 to 100
 
   constructor(_parent: HTMLElement) {

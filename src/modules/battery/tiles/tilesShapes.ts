@@ -2,6 +2,8 @@ import { dot, colorArray, getRandomInt } from "../../header.js";
 import { tilesSystem } from "./tilesSystem.js";
 
 class itile {
+  public id: number;
+
   protected m_x: number;
   protected m_y: number;
   protected m_offset: number;
@@ -28,11 +30,18 @@ class itile {
 
   public delete(): void {}
 
-  constructor(_parent: tilesSystem, _x: number, _y: number, _offset: number) {
+  constructor(
+    _parent: tilesSystem,
+    _x: number,
+    _y: number,
+    _offset: number,
+    _id: number
+  ) {
     this.m_parent = _parent;
     this.m_x = _x;
     this.m_y = _y;
     this.m_offset = _offset;
+    this.id = _id;
 
     this.m_color = ((): string => {
       var _load: number =
@@ -56,29 +65,22 @@ class itile {
 
       if (_load < 0) _load = 0;
       else if (_load > colorArray.length) _load = colorArray.length;
-
-      return colorArray[_load];
+      return colorArray[_load - 1];
     })();
-
-    if (this.m_color == undefined) console.log(this);
 
     return;
   }
 }
 
 class t_1x1 extends itile {
+  static id:number = 0;
   constructor(
     _parent: tilesSystem,
     _x: number,
     _y: number,
     _offset: number = 0
   ) {
-    super(_parent, _x, _y, _offset);
-
-    // DEBUG /!\
-    if (_parent.matrix[_y][_x]) console.log(`x:${_x} | y:${_y} !!!`);
-    // DEBUG /!\
-
+    super(_parent, _x, _y, _offset, 0);
     _parent.matrix[_y][_x] = true;
     return;
   }
@@ -95,19 +97,14 @@ class t_1x1 extends itile {
 }
 
 class t_1x2 extends itile {
+  static id:number = 1;
   constructor(
     _parent: tilesSystem,
     _x: number,
     _y: number,
     _offset: number = 0
   ) {
-    super(_parent, _x, _y, _offset);
-
-    // DEBUG /!\
-    if (_parent.matrix[_y][_x]) console.log(`x:${_x} | y:${_y} !!!`);
-    if (_parent.matrix[_y - 1][_x]) console.log(`x:${_x} | y:${_y - 1} !!!`);
-    // DEBUG /!\
-
+    super(_parent, _x, _y, _offset, 1);
     _parent.matrix[_y][_x] = true;
     _parent.matrix[_y - 1][_x] = true;
     return;
@@ -131,22 +128,14 @@ class t_1x2 extends itile {
 }
 
 class t_2x2 extends itile {
+  static id:number = 2;
   constructor(
     _parent: tilesSystem,
     _x: number,
     _y: number,
     _offset: number = 0
   ) {
-    super(_parent, _x, _y, _offset);
-
-    // DEBUG /!\
-    if (_parent.matrix[_y][_x]) console.log(`x:${_x} | y:${_y} !!!`);
-    if (_parent.matrix[_y][_x + 1]) console.log(`x:${_x + 1} | y:${_y} !!!`);
-    console.log(`x:${_x + 1} | y:${_y - 1} !!!`);
-    if (_parent.matrix[_y - 1][_x]) console.log(`x:${_x} | y:${_y - 1} !!!`);
-    if (_parent.matrix[_y - 1][_x + 1])
-    // DEBUG /!\
-
+    super(_parent, _x, _y, _offset, 2);
     _parent.matrix[_y][_x] = true;
     _parent.matrix[_y][_x + 1] = true;
     _parent.matrix[_y - 1][_x] = true;
@@ -174,20 +163,14 @@ class t_2x2 extends itile {
 }
 
 class t_2x1 extends itile {
+  static id:number = 3;
   constructor(
     _parent: tilesSystem,
     _x: number,
     _y: number,
     _offset: number = 0
   ) {
-    super(_parent, _x, _y, _offset);
-
-    // DEBUG /!\
-    if (_parent.matrix[_y][_x]) console.log(`x:${_x} | y:${_y} !!!`);
-    if (_parent.matrix[_y][_x + 1]) console.log(`x:${_x + 1} | y:${_y} !!!`);
-    console.log(`x:${_x + 1} | y:${_y - 1} !!!`);
-    // DEBUG /!\
-
+    super(_parent, _x, _y, _offset, 3);
     _parent.matrix[_y][_x] = true;
     _parent.matrix[_y][_x + 1] = true;
     return;
@@ -211,21 +194,14 @@ class t_2x1 extends itile {
 }
 
 class t_tl extends itile {
+  static id:number = 4;
   constructor(
     _parent: tilesSystem,
     _x: number,
     _y: number,
     _offset: number = 0
   ) {
-    super(_parent, _x, _y, _offset);
-
-    // DEBUG /!\
-    if (_parent.matrix[_y][_x]) console.log(`x:${_x} | y:${_y} !!!`);
-    if (_parent.matrix[_y][_x + 1]) console.log(`x:${_x + 1} | y:${_y} !!!`);
-    console.log(`x:${_x + 1} | y:${_y - 1} !!!`);
-    if (_parent.matrix[_y - 1][_x + 1])
-    // DEBUG /!\
-
+    super(_parent, _x, _y, _offset, 4);
     _parent.matrix[_y][_x] = true;
     _parent.matrix[_y][_x + 1] = true;
     _parent.matrix[_y - 1][_x + 1] = true;
@@ -257,21 +233,14 @@ class t_tl extends itile {
 }
 
 class t_tr extends itile {
+  static id:number = 5;
   constructor(
     _parent: tilesSystem,
     _x: number,
     _y: number,
     _offset: number = 0
   ) {
-    super(_parent, _x, _y, _offset);
-
-    // DEBUG /!\
-    if (_parent.matrix[_y][_x]) console.log(`x:${_x} | y:${_y} !!!`);
-    if (_parent.matrix[_y][_x + 1]) console.log(`x:${_x + 1} | y:${_y} !!!`);
-    console.log(`x:${_x + 1} | y:${_y - 1} !!!`);
-    if (_parent.matrix[_y - 1][_x]) console.log(`x:${_x} | y:${_y - 1} !!!`);
-    // DEBUG /!\
-
+    super(_parent, _x, _y, _offset, 5);
     _parent.matrix[_y][_x] = true;
     _parent.matrix[_y][_x + 1] = true;
     _parent.matrix[_y - 1][_x] = true;
@@ -303,21 +272,14 @@ class t_tr extends itile {
 }
 
 class t_dl extends itile {
+  static id:number = 6;
   constructor(
     _parent: tilesSystem,
     _x: number,
     _y: number,
     _offset: number = 0
   ) {
-    super(_parent, _x, _y, _offset);
-
-    // DEBUG /!\
-    if (_parent.matrix[_y][_x + 1]) console.log(`x:${_x + 1} | y:${_y} !!!`);
-    console.log(`x:${_x + 1} | y:${_y - 1} !!!`);
-    if (_parent.matrix[_y - 1][_x]) console.log(`x:${_x} | y:${_y - 1} !!!`);
-    if (_parent.matrix[_y - 1][_x + 1])
-    // DEBUG /!\
-
+    super(_parent, _x, _y, _offset, 6);
     _parent.matrix[_y][_x + 1] = true;
     _parent.matrix[_y - 1][_x] = true;
     _parent.matrix[_y - 1][_x + 1] = true;
@@ -349,20 +311,14 @@ class t_dl extends itile {
 }
 
 class t_dr extends itile {
+  static id:number = 7;
   constructor(
     _parent: tilesSystem,
     _x: number,
     _y: number,
     _offset: number = 0
   ) {
-    super(_parent, _x, _y, _offset);
-
-    // DEBUG /!\
-    if (_parent.matrix[_y][_x]) console.log(`x:${_x} | y:${_y} !!!`);
-    if (_parent.matrix[_y - 1][_x]) console.log(`x:${_x} | y:${_y - 1} !!!`);
-    if (_parent.matrix[_y - 1][_x + 1])
-    // DEBUG /!\
-
+    super(_parent, _x, _y, _offset, 7);
     _parent.matrix[_y][_x] = true;
     _parent.matrix[_y - 1][_x] = true;
     _parent.matrix[_y - 1][_x + 1] = true;
