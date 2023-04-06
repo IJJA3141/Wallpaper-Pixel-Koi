@@ -1,5 +1,8 @@
 declare var Promise: any;
 
+const shc: string = "#FFFFFF";
+const hdc: string = "#646464";
+
 //functions
 function sleep(_timeout: number) {
   return new Promise((_resolve: TimerHandler) =>
@@ -11,6 +14,18 @@ function /* [0 ; max[ */ getRandomInt(_max: number): number {
   return Math.floor(Math.random() * _max);
 }
 
+class batteryManager {
+  charging: boolean;
+  chargingTime: number;
+  dischargingTime: number;
+  level: number;
+  static onchargingchange: string = `chargingchange`;
+  static onchargingtimechange: string = `chargingtimechange`;
+  static ondischargingtimechange: string = `dischargingtimechange`;
+  static onlevelchange: string = `levelchange`;
+  addEventListener: Function;
+}
+
 function createDOM(
   _type: string,
   _id: string = "",
@@ -20,6 +35,61 @@ function createDOM(
   elem.id = _id;
   elem.className = _className;
   return elem;
+}
+
+class cluster {
+  public div: HTMLDivElement;
+  private m_title: HTMLParagraphElement;
+  private m_hour: HTMLParagraphElement;
+  private m_minutes: HTMLParagraphElement;
+  private m_second: HTMLParagraphElement;
+
+  set time(_second: number) {
+    this.m_hour.innerText = `${Math.floor(_second / 3600)}時`;
+    this.m_minutes.innerText = `${Math.floor(_second / 60) % 60}分`;
+    this.m_second.innerText = `${_second % 60}秒`;
+    return;
+  }
+
+  set hidden(_bool: boolean) {
+    if (_bool) {
+      this.m_title.style.color = shc;
+      this.m_hour.style.color = shc;
+      this.m_minutes.style.color = shc;
+      this.m_second.style.color = shc;
+    } else {
+      this.m_title.style.color = hdc;
+      this.m_hour.style.color = hdc;
+      this.m_minutes.style.color = hdc;
+      this.m_second.style.color = hdc;
+    }
+    return;
+  }
+
+  constructor(_title: string, _id: string = "", _className: string = "") {
+    this.div = <HTMLDivElement>createDOM("div", _id + "Div", _className);
+    this.m_title = <HTMLParagraphElement>(
+      createDOM("p", _id + "Title", _className)
+    );
+    this.m_hour = <HTMLParagraphElement>(
+      createDOM("p", _id + "Hour", _className)
+    );
+    this.m_minutes = <HTMLParagraphElement>(
+      createDOM("p", _id + "Minutes", _className)
+    );
+    this.m_second = <HTMLParagraphElement>(
+      createDOM("p", _id + "Second", _className)
+    );
+
+    this.div.appendChild(this.m_title);
+    this.div.appendChild(this.m_hour);
+    this.div.appendChild(this.m_minutes);
+    this.div.appendChild(this.m_second);
+
+    this.m_title.innerText = _title;
+
+    return;
+  }
 }
 
 function indexOfFalse(_array: boolean[]): number[] {
@@ -88,4 +158,13 @@ const colorArray: string[] = [
 
 const dot = 12;
 
-export { sleep, getRandomInt, createDOM, indexOfFalse, dot, colorArray };
+export {
+  sleep,
+  getRandomInt,
+  createDOM,
+  indexOfFalse,
+  dot,
+  colorArray,
+  batteryManager,
+  cluster,
+};

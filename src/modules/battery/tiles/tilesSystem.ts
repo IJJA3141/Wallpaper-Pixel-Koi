@@ -258,7 +258,7 @@ class tilesSystem {
     var x: number;
     var y: number = this.load.y;
 
-    if (this.itiles[y].length == 0) y++;
+    while (this.itiles[y].length == 0) y++;
 
     this.itiles[y].forEach((value: itile, index: number): void => {
       if (value.id == t_dr.id || value.id == t_dl.id) x = index;
@@ -269,6 +269,7 @@ class tilesSystem {
     if (this.itiles[y][x] === undefined) {
       console.log(this.itiles);
       console.log(`x:${x} | y:${y}`);
+      console.log("dumi")
     }
 
     this.itiles[y][x].delete();
@@ -292,7 +293,7 @@ class tilesSystem {
       });
       this.m_drawCount--;
 
-      await sleep(0); // <= draw time need to change /!\
+      await sleep(100); // <= draw time need to change /!\
     }
     return;
   }

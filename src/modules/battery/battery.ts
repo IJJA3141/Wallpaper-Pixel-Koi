@@ -1,9 +1,10 @@
-import { createDOM, dot, sleep, getRandomInt } from "../header.js";
+import { createDOM, dot, sleep, batteryManager, cluster } from "../header.js";
 import { tilesSystem } from "./tiles/tilesSystem.js";
 
 class battery {
-  public m_ts: tilesSystem;
+  public animationState: boolean;
 
+  private m_ts: tilesSystem;
   private m_battery: HTMLDivElement;
   private m_left: HTMLDivElement;
   private m_right: HTMLDivElement;
@@ -11,14 +12,10 @@ class battery {
   private m_canvas: HTMLCanvasElement;
 
   private m_loadText: HTMLParagraphElement;
-  private m_stateText: HTMLParagraphElement;
+  private m_charge: cluster;
+  private m_discharge: cluster;
 
   public drawCount: number;
-
-  set state(_state: string) {
-    this.m_stateText.innerText = _state;
-    return;
-  }
 
   set load(_load: number) {
     this.m_loadText.innerText = `load: ${_load}`;
@@ -31,19 +28,21 @@ class battery {
         _load <
         this.m_ts.load.y + this.m_ts.load.x.length / this.m_ts.length
       ) {
+        console.log(`tile added`);
         this.m_ts.addTile();
-        this.draw();
-        await sleep(0);
+        await sleep(500);
       }
     })();
 
     (async () => {
       while (_load > this.m_ts.load.y) {
+        console.log(`tile deleted`);
         this.m_ts.delete();
       }
     })();
 
-    return
+    this.draw();
+    return;
   } //load in % from 0 to 100
 
   constructor(_parent: HTMLElement) {
@@ -59,11 +58,13 @@ class battery {
 
     this.m_canvas = <HTMLCanvasElement>createDOM("canvas", "batteryCanvas");
     this.m_loadText = <HTMLParagraphElement>createDOM("p", "batteryLoadText");
-    this.m_stateText = <HTMLParagraphElement>(
-      createDOM("p", "batteryChargeText")
-    );
+
+    this.m_charge = new cluster("Charge Time", "batteryCharge");
+    this.m_discharge = new cluster("Dischagrge Time", "batteryDisCharge");
 
     this.m_right.appendChild(this.m_loadText);
+    this.m_right.appendChild(this.m_charge.div);
+    this.m_right.appendChild(this.m_discharge.div);
 
     this.m_left.appendChild(this.m_canvas);
     this.m_battery.appendChild(this.m_left);
@@ -77,11 +78,63 @@ class battery {
     this.m_ts = new tilesSystem(height, width, this.m_canvas.getContext("2d"));
     this.drawCount = 0;
 
+    (navigator as any).getBattery().then((_manger: batteryManager) => {
+      this.load = Math.floor(_manger.level * 100);
+
+      if (!_manger.charging) {
+        this.m_charge.hidden = false;
+        this.m_discharge.hidden = true;
+      } else {
+        this.m_charge.hidden = true;
+        this.m_discharge.hidden = false;
+      }
+
+      this.m_charge.time = _manger.chargingTime;
+      this.m_discharge.time = _manger.dischargingTime;
+
+      _manger.addEventListener(batteryManager.onlevelchange, () => {
+        this.load = Math.floor(_manger.level * 100);
+        console.log(`battery level changed to:${_manger.level}`);
+      });
+
+      _manger.addEventListener(batteryManager.onchargingchange, () => {
+        if (!_manger.charging) {
+          this.m_charge.hidden = false;
+          this.m_discharge.hidden = true;
+        } else {
+          this.m_charge.hidden = true;
+          this.m_discharge.hidden = false;
+        }
+        
+        this.m_charge.time = _manger.chargingTime;
+        this.m_discharge.time = _manger.dischargingTime;
+
+        console.log(
+          `charge:${_manger.chargingTime} | dis:${_manger.dischargingTime}`
+        );
+        // Annimation
+      });
+
+      _manger.addEventListener(batteryManager.onchargingtimechange, () => {
+        console.log(_manger.chargingTime);
+        this.m_charge.time = _manger.chargingTime;
+      });
+
+      _manger.addEventListener(batteryManager.ondischargingtimechange, () => {
+        console.log(_manger.dischargingTime);
+        this.m_discharge.time = _manger.dischargingTime;
+      });
+    });
+
     return;
   }
 
   public draw(): void {
     this.m_ts.draw();
+    return;
+  }
+
+  public async chargingAnimation(): Promise<void> {
     return;
   }
 }
