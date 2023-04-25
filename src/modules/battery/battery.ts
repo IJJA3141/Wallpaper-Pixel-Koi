@@ -92,6 +92,8 @@ class battery {
       this.m_charge.time = _manger.chargingTime;
       this.m_discharge.time = _manger.dischargingTime;
 
+      console.log(_manger);
+
       _manger.addEventListener(batteryManager.onlevelchange, () => {
         this.load = Math.floor(_manger.level * 100);
         console.log(`battery level changed to:${_manger.level}`);
@@ -110,7 +112,7 @@ class battery {
         this.m_discharge.time = _manger.dischargingTime;
 
         console.log(
-          `charge:${_manger.chargingTime} | dis:${_manger.dischargingTime}`
+          _manger
         );
         // Annimation
       });
