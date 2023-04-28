@@ -1,0 +1,62 @@
+#player {
+    width: fit-content;
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 2;
+    grid-row-end: 3;
+}
+
+#playerTop {
+    width: calc(100% - 2 * var(--margin));
+    margin: var(--margin);
+    display: flex;
+    justify-content: space-between;
+}
+
+#playerMusic {
+    width: 165px;
+    font-size: x-large;
+    grid-template-columns: 100%;
+    grid-template-rows: [top] max-content [space1] var(--margin) [center] max-content [space2] var(--margin) [bottom] max-content;
+    display: grid;
+    overflow-wrap: break-word;
+    align-items: start;
+}
+
+#playerTitle {
+    width: 100%;
+    grid-row: 1;
+}
+
+#playerArtist {
+    width: 100%;
+    grid-row: 3;
+}
+
+#playerTrack {
+    width: 100%;
+    grid-row: 5;
+}
+
+#playerImage {
+    width: calc(50% - (var(--margin) / 2));
+    align-self: self-start;
+}
+
+#playerSpacer {
+    width: var(--margin);
+}
+
+#playerBar {
+    margin: var(--margin);
+    border-color: rgba(255, 255, 255, 0.25);
+    border-width: 1px;
+    border-style: solid;
+    background-color: rgba(255, 255, 255, 0.25);
+}
+
+#playerCanvas {
+    margin-left: var(--margin);
+    margin-right: var(--margin);
+    background-color: rgba(255, 255, 255, 0.25);
+}

@@ -28,7 +28,6 @@ class battery {
         _load <
         this.m_ts.load.y + this.m_ts.load.x.length / this.m_ts.length
       ) {
-        console.log(`tile added`);
         this.m_ts.addTile();
         await sleep(500);
       }
@@ -36,7 +35,6 @@ class battery {
 
     (async () => {
       while (_load > this.m_ts.load.y) {
-        console.log(`tile deleted`);
         this.m_ts.delete();
       }
     })();

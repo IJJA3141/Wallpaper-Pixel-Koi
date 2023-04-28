@@ -51,7 +51,9 @@
     max-height: 30%;
     max-width: 60%;
     margin: 1cm;
-    display: flex;
+    display: inline-grid;
+    grid-template-columns: [left] min-content [right] min-content;
+    grid-template-rows: [top] min-content [center] min-content [bottom] min-content;
 }
 
 /*
