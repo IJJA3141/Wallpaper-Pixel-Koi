@@ -67,6 +67,9 @@ class player {
   private m_position: number;
   private m_duration: number;
 
+  private m_barWidth: number;
+  private m_space: number;
+
   public constructor(_parent: HTMLElement) {
     this.m_player = <HTMLDivElement>createDOM("div", "player", "uiBackground");
     this.m_top = <HTMLDivElement>createDOM("div", "playerTop");
@@ -133,45 +136,28 @@ class player {
     this.m_canvas.width = this.m_top.clientWidth;
     this.m_canvas.height = (9 / 16) * this.m_top.clientWidth;
 
-    this.m_wallpaperAudioListener = (_audioArray: Array<number>): void => {
-      console.log(_audioArray);
-      console.log("test")
+    this.m_barWidth = this.m_canvas.width / 2 / 64;
+    this.m_space = (this.m_canvas.width - this.m_barWidth * 64) / 65;
 
+    this.m_ctx.fillStyle = "white"
+
+    this.m_wallpaperAudioListener = (_audioArray: Array<number>) => {
+      // Clear the canvas and set it to black
       this.m_ctx.clearRect(0, 0, this.m_canvas.width, this.m_canvas.height);
 
-      var barWidth = Math.round((1.0 / 128.0) * this.m_canvas.width);
-      var halfCount = _audioArray.length / 2;
+      for (var i: number = 0; i < 64; i++) {
+        this.m_btx.fillRect(
+          this.m_space * (i + 1) + this.m_barWidth * i,
+          0,
+          this.m_barWidth,
+          this.m_canvas.height * _audioArray[i]
+        );
 
-      // Begin with the left channel in red
-      this.m_ctx.fillStyle = "rgb(255,0,0)";
-      // Iterate over the first 64 array elements (0 - 63) for the left channel audio data
-      for (var i = 0; i < halfCount; ++i) {
-        // Create an audio bar with its hight depending on the audio volume level of the current frequency
-        var height = this.m_canvas.height * Math.min(_audioArray[i], 1);
-        this.m_ctx.fillRect(
-          barWidth * i,
-          this.m_canvas.height - height,
-          barWidth,
-          height
-        );
-      }
-      // Now draw the right channel in blue
-      this.m_ctx.fillStyle = "rgb(0,0,255)";
-      // Iterate over the last 64 array elements (64 - 127) for the right channel audio data
-      for (var i = halfCount; i < _audioArray.length; ++i) {
-        // Create an audio bar with its hight depending on the audio volume level
-        // Using audioArray[191 - i] here to inverse the right channel for aesthetics
-        var height = this.m_canvas.height * Math.min(_audioArray[191 - i], 1);
-        this.m_ctx.fillRect(
-          barWidth * i,
-          this.m_canvas.height - height,
-          barWidth,
-          height
-        );
+        return
       }
     };
-    
     window.wallpaperRegisterAudioListener(this.m_wallpaperAudioListener);
+
     window.wallpaperRegisterMediaPropertiesListener(
       this.m_wallpaperMediaPropertiesListener
     );
@@ -186,7 +172,7 @@ class player {
     );
 
     this.m_bar.height = 20;
-    this.m_bar.width = this.m_top.clientWidth;
+    this.m_barWidth = this.m_top.clientWidth;
     this.m_btx.fillStyle = "white";
 
     setInterval(() => {

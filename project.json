@@ -11,9 +11,10 @@
 				"type" : "color",
 				"value" : "0 0 0"
 			}
-		}
+		},
+		"supportsaudioprocessing" : true
 	},
 	"title" : "Pixel Koi Pond",
-	"type" : "web",
+	"type" : "Web",
 	"version" : 0
 }
