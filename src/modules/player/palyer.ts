@@ -136,24 +136,23 @@ class player {
     this.m_canvas.width = this.m_top.clientWidth;
     this.m_canvas.height = (9 / 16) * this.m_top.clientWidth;
 
-    this.m_barWidth = this.m_canvas.width / 2 / 64;
+    this.m_barWidth = this.m_canvas.width / 64 / 2;
     this.m_space = (this.m_canvas.width - this.m_barWidth * 64) / 65;
 
-    this.m_ctx.fillStyle = "white"
+    this.m_ctx.fillStyle = "white";
 
     this.m_wallpaperAudioListener = (_audioArray: Array<number>) => {
       // Clear the canvas and set it to black
       this.m_ctx.clearRect(0, 0, this.m_canvas.width, this.m_canvas.height);
 
-      for (var i: number = 0; i < 64; i++) {
-        this.m_btx.fillRect(
+      for (var i = 0; i < 64; ++i) {
+        // Create an audio bar with its hight depending on the audio volume level of the current frequency
+        this.m_ctx.fillRect(
           this.m_space * (i + 1) + this.m_barWidth * i,
-          0,
+          this.m_canvas.height,
           this.m_barWidth,
-          this.m_canvas.height * _audioArray[i]
+          this.m_canvas.height * -_audioArray[i]
         );
-
-        return
       }
     };
     window.wallpaperRegisterAudioListener(this.m_wallpaperAudioListener);
@@ -172,7 +171,7 @@ class player {
     );
 
     this.m_bar.height = 20;
-    this.m_barWidth = this.m_top.clientWidth;
+    this.m_bar.width = this.m_top.clientWidth;
     this.m_btx.fillStyle = "white";
 
     setInterval(() => {

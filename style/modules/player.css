@@ -52,11 +52,11 @@
     border-color: rgba(255, 255, 255, 0.25);
     border-width: 1px;
     border-style: solid;
-    background-color: rgba(255, 255, 255, 0.25);
+    background-color: rgba(255, 255, 255, 0.125);
 }
 
 #playerCanvas {
     margin-left: var(--margin);
     margin-right: var(--margin);
-    background-color: rgba(255, 255, 255, 0.25);
+    background-color: rgba(255, 255, 255, 0.125);
 }
