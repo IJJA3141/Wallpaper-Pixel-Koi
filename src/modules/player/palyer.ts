@@ -31,7 +31,7 @@ interface thumbnailEvent {
 }
 
 interface mediaPlaybackEvent {
-  state: any;
+  state: number;
 }
 
 interface mediaTimelineEvent {
@@ -70,6 +70,11 @@ class player {
   private m_barWidth: number;
   private m_space: number;
 
+  private m_pause(): void {
+    //stop loop
+    return;
+  }
+
   public constructor(_parent: HTMLElement) {
     this.m_player = <HTMLDivElement>createDOM("div", "player", "uiBackground");
     this.m_top = <HTMLDivElement>createDOM("div", "playerTop");
@@ -101,6 +106,8 @@ class player {
     this.m_player.appendChild(this.m_bottom);
     _parent.appendChild(this.m_player);
 
+    this.m_player.style.visibility = "hidden";
+
     this.m_wallpaperMediaPropertiesListener = (
       _event: propertiesEvent
     ): void => {
@@ -121,7 +128,27 @@ class player {
     this.m_wallpaperMediaPlaybackListener = (
       _event: mediaPlaybackEvent
     ): void => {
-      console.log(_event);
+      console.log(`Playback:${_event.state}`);
+      // 0 = nothing
+      // 1 = playing
+      // 2 = paused
+
+      switch (_event.state) {
+        case 0:
+          this.m_player.style.visibility = "hidden";
+          console.log(0);
+          break;
+        case 1:
+          this.m_player.style.visibility = "visible";
+          console.log(1);
+          break;
+        case 2:
+          this.m_player.style.visibility = "visible";
+          this.m_pause();
+          console.log(2);
+          break;
+      }
+      
       return;
     };
 
